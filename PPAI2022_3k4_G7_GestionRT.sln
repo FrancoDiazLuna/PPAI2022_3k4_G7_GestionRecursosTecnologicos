@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32602.215
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PPAI2022_3k4_G7_GestionRT", "PPAI2022_3k4_G7_GestionRT\PPAI2022_3k4_G7_GestionRT.csproj", "{5F06DB2F-9F15-45AA-AE37-461F22EF6AC9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5F06DB2F-9F15-45AA-AE37-461F22EF6AC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F06DB2F-9F15-45AA-AE37-461F22EF6AC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F06DB2F-9F15-45AA-AE37-461F22EF6AC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F06DB2F-9F15-45AA-AE37-461F22EF6AC9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B1055637-7B4A-4C49-8672-1A69A8268BCF}
+	EndGlobalSection
+EndGlobal
