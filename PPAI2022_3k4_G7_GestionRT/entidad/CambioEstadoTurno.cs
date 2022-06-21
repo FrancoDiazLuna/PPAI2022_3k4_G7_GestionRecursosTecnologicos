@@ -12,11 +12,12 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         private DateTime fechaFin;
         private Estado estadoTurno;
 
-        public CambioEstadoTurno(DateTime fechaInicio, DateTime fechaFin, Estado estadoTurno)
+        // Constructor con parametro "fechaFin" opcional donde su valor por defecto es null
+        public CambioEstadoTurno(Estado estadoTurno ,DateTime fechaInicio, Nullable<DateTime> fechaFin = null)
         {
-            this.fechaInicio = fechaInicio;
-            this.fechaFin = fechaFin;
             this.estadoTurno = estadoTurno;
+            this.fechaInicio = fechaInicio;
+            this.fechaFin = (DateTime)fechaFin;
         }
 
         public DateTime FechaInicio { get => fechaInicio; set => fechaInicio = value; }

@@ -12,21 +12,42 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         private DayOfWeek diaSemana;
         private DateTime fechaHoraInicio;
         private DateTime fechaHoraFin;
-        private List<CambioEstadoTurno> cambioEstadoTurno;
+        private List<CambioEstadoTurno> cambioEstadoTurno = new List<CambioEstadoTurno>();
 
-        public Turno(DateTime fechaGeneracion, DayOfWeek diaSemana, DateTime fechaHoraInicio, DateTime fechaHoraFin, List<CambioEstadoTurno> cambioEstadoTurno)
+        public Turno( DayOfWeek diaSemana, DateTime fechaHoraInicio, DateTime fechaHoraFin,CambioEstadoTurno cambioEstadoTurno)
         {
-            this.fechaGeneracion = fechaGeneracion;
+            this.fechaGeneracion = new DateTime();
             this.diaSemana = diaSemana;
             this.fechaHoraInicio = fechaHoraInicio;
             this.fechaHoraFin = fechaHoraFin;
-            this.cambioEstadoTurno = cambioEstadoTurno;
+            this.cambioEstadoTurno.Add(cambioEstadoTurno);
         }
 
-        public DateTime FechaGeneracion { get => fechaGeneracion; set => fechaGeneracion = value; }
+        public DateTime FechaGeneracion { get => fechaGeneracion; }
         public DayOfWeek DiaSemana { get => diaSemana; set => diaSemana = value; }
         public DateTime FechaHoraInicio { get => fechaHoraInicio; set => fechaHoraInicio = value; }
         public DateTime FechaHoraFin { get => fechaHoraFin; set => fechaHoraFin = value; }
+
+        public bool esPosteriorFechaHoraActual () { return DateTime.Compare(this.fechaHoraInicio, new DateTime()) > 0; }
+
+        public CambioEstadoTurno obtenerCambioEstadoTurnoActual ()
+        {
+            foreach ( CambioEstadoTurno cet in cambioEstadoTurno)
+            {
+                if ( cet.esActual() )
+                {
+                    return cet;
+                }
+            }
+            return null;
+        }
+
+        public void reservarTurno (Estado estadoReservado)
+        {
+            CambioEstadoTurno cambioActual = obtenerCambioEstadoTurnoActual();
+            cambioActual.FechaFin = new DateTime();
+            CambioEstadoTurno nuevoCambioEstado = new CambioEstadoTurno(estadoReservado, new DateTime());
+        }   // Asociar cientifico q reserva, con el turno ?
 
         public bool validarFechaHoraInicio(DateTime timeInicio)
         {
