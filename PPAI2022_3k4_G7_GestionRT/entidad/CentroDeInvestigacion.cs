@@ -22,11 +22,12 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         private string edificio;
         private string coordenadas;
 
-        private List<RecursoTecnologico> recursoTecnologicos;
+        private List<RecursoTecnologico> recursosTecnologicos = new List<RecursoTecnologico>();
         private AsignacionDirector directorCI;
-        //private List<AsignacionCientifico> cientificos = new ArrayList<AsignacionCientifico>();
+        private AsignacionRespTecnologico responsableTecnologico;
+        private List<AsignacionCientifico> cientificos;
 
-        public CentroDeInvestigacion(string nombre, string sigla, string direccion, string email, int nroResolucion, DateTime fechaResolucion, string reglamento, DateTime fechaAlta, DateTime fechaBaja, string motivoBaja, string caracteristicasGenerales, string edificio, string coordenadas, List<RecursoTecnologico> recursoTecnologicos, AsignacionDirector directorCI)
+        public CentroDeInvestigacion(string nombre, string sigla, string direccion, string email, int nroResolucion, DateTime fechaResolucion, string reglamento, DateTime fechaAlta, DateTime fechaBaja, string motivoBaja, string caracteristicasGenerales, string edificio, string coordenadas, AsignacionDirector directorCI)
         {
             this.nombre = nombre;
             this.sigla = sigla;
@@ -41,11 +42,36 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             this.caracteristicasGenerales = caracteristicasGenerales;
             this.edificio = edificio;
             this.coordenadas = coordenadas;
-            this.recursoTecnologicos = recursoTecnologicos;
             this.directorCI = directorCI;
             this.nombre = nombre;
             this.direccion = direccion;
         }
+
+        public void agregarRT(RecursoTecnologico rt)
+        {
+            this.recursosTecnologicos.Add(rt); 
+        }
+
+        public void agregarAsignacionCientifico (AsignacionCientifico cientifico)
+        {
+            this.cientificos.Add(cientifico);
+        }
+
+
+        public bool esTuRecursoTecnologico(RecursoTecnologico recursoTecnologico)
+        {
+            bool esTuRecurso = false;
+            
+            foreach(RecursoTecnologico rt in this.recursosTecnologicos)
+            {
+                esTuRecurso = rt.Equals(recursoTecnologico);
+            }
+            return esTuRecurso;
+        }
+
+
+
+
     }
 } 
 

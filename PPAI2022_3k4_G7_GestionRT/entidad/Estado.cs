@@ -30,6 +30,8 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
 
         //public bool esReservado() { return nombre == "Reservado"; }       huele aun mas raro
         // internal bool esReservable() { return nombre == "Disponible"; }      huele raro
+        // Estado = (Nombre: "nomEst1", reservable: true , cancelable: false)
+        // Varios estados pueden ser Reservables o cancelables. esReservable y esCancelable NO SON ESTADOS
 
         public bool esReservable() { return this.reservable; }
         public bool esCancelable() { return this.cancelable; }

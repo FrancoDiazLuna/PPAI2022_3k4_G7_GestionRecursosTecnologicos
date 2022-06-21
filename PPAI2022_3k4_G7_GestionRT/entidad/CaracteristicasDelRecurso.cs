@@ -10,6 +10,6 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
     {
         private string valor;
         private string unidad;
-        private Caracteristicas caracteristicas;
+        private Caracteristica caracteristicas;
     }
 }
