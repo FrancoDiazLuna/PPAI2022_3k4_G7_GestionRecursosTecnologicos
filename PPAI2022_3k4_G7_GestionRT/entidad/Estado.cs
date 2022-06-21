@@ -14,13 +14,23 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         private bool reservable;
         private bool cancelable;
 
-        public Estado(string nombre, string ambito, string descripcion, bool reservable, bool cancelable)
+        public string Nombre { get => nombre; set => nombre = value; }
+        public string Ambito { get => ambito; set => ambito = value; }
+        public string Descripcion { get => descripcion; set => descripcion = value; }
+
+        public Estado(string nombre, string ambito, string descripcion)
         {
             this.nombre = nombre;
             this.ambito = ambito;
             this.descripcion = descripcion;
-            this.reservable = reservable;
-            this.cancelable = cancelable;
         }
+
+        public bool esReservado() { return nombre == "Reservado"; }
+
+        internal bool esReservable() { return nombre == "Disponible"; }
+
+        public bool esAmbitoTurno() { return ambito == "Turno"; }
+
+
     }
 }

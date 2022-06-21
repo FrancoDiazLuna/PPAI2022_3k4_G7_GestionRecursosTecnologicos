@@ -23,13 +23,10 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         private string coordenadas;
 
         private List<RecursoTecnologico> recursoTecnologicos;
-
-        private
-
         private AsignacionDirector directorCI;
-        private List<AsignacionCientifico> cientificos = new ArrayList<AsignacionCientifico>();
+        //private List<AsignacionCientifico> cientificos = new ArrayList<AsignacionCientifico>();
 
-        public CentroDeInvestigacion(string nombre, string sigla, string direccion, string email, int nroResolucion, DateTime fechaResolucion, string reglamento, DateTime fechaAlta, DateTime fechaBaja, string motivoBaja, string caracteristicasGenerales, string edificio, string coordenadas, List<RecursoTecnologico> recursoTecnologicos, AsignacionDirector directorCI, List<AsignacionCientifico> cientificos)
+        public CentroDeInvestigacion(string nombre, string sigla, string direccion, string email, int nroResolucion, DateTime fechaResolucion, string reglamento, DateTime fechaAlta, DateTime fechaBaja, string motivoBaja, string caracteristicasGenerales, string edificio, string coordenadas, List<RecursoTecnologico> recursoTecnologicos, AsignacionDirector directorCI)
         {
             this.nombre = nombre;
             this.sigla = sigla;
@@ -46,12 +43,6 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             this.coordenadas = coordenadas;
             this.recursoTecnologicos = recursoTecnologicos;
             this.directorCI = directorCI;
-            this.cientificos = cientificos;
-
-            if (nombre == null || direccion == null)
-            {
-                throw new RuntimeException("CentroInvestigacion datos faltantes");
-            }
             this.nombre = nombre;
             this.direccion = direccion;
         }

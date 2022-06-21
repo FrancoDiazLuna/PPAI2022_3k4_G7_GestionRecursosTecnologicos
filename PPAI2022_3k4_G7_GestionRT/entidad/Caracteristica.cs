@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PPAI2022_3k4_G7_GestionRT.boundary
+namespace PPAI2022_3k4_G7_GestionRT.entidad
 {
-    internal class PantallaRegistroDeTurno
+    public class Caracteristica
     {
     }
 }

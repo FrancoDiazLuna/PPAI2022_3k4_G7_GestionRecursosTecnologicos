@@ -6,7 +6,23 @@ using System.Threading.Tasks;
 
 namespace PPAI2022_3k4_G7_GestionRT.entidad
 {
-    internal class TipoRecursoTecnologico
+    public class TipoRecursoTecnologico
     {
+        private string nombre;
+        private string descripcion;
+        private List<Caracteristica> caracteristicas;
+
+        public TipoRecursoTecnologico(string nombre, string descripcion)
+        {
+            this.nombre = nombre;
+            this.descripcion = descripcion;
+        }
+
+        public bool esSeleccionado(string tipo)
+        {
+            return nombre == tipo;
+        }
+
+        public string getNombre() { return nombre; }
     }
 }

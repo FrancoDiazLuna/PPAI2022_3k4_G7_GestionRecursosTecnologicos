@@ -17,5 +17,21 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             this.nombre = nombre;
             this.modelos = modelos;
         }
+
+        public string getNombre()
+        {
+            return nombre;
+        }
+
+        public void setNombre(string value)
+        {
+            nombre = value;
+        }
+
+
+        public bool esDeEstaMarca(Modelo modelo) 
+        {
+            return modelos.Contains(modelo);
+        }
     }
 }

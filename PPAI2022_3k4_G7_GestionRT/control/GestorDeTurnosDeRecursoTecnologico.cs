@@ -8,5 +8,6 @@ namespace PPAI2022_3k4_G7_GestionRT.control
 {
     internal class GestorDeTurnosDeRecursoTecnologico
     {
+
     }
 }

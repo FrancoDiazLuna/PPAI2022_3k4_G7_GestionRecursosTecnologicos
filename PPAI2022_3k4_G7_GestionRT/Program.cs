@@ -16,7 +16,7 @@ namespace PPAI2022_3k4_G7_GestionRT
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new frmMain());
         }
     }
 }

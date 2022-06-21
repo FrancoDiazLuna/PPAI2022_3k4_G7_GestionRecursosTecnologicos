@@ -29,6 +29,17 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             this.usuarioPersonal = usuarioPersonal;
         }
 
+        public PersonalCientifico(int legajo, string nombre, string apellido, int nroDocumento, int nroTelefono, string correoInstitucional, string correoPersonal)
+        {
+            this.legajo = legajo;
+            this.nombre = nombre;
+            this.apellido = apellido;
+            this.nroDocumento = nroDocumento;
+            this.nroTelefono = nroTelefono;
+            this.correoInstitucional = correoInstitucional;
+            this.correoPersonal = correoPersonal;
+        }
+
         public int Legajo { get => legajo; set => legajo = value; }
         public string Nombre { get => nombre; set => nombre = value; }
         public string Apellido { get => apellido; set => apellido = value; }

@@ -16,10 +16,11 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         private List<Turno> listaTurno;
         private List<CambioEstadoRT> cambiosEstadosRT;
         private AsignacionRespTecnologico responsableTecnologico;
-        private List<CaracteristicaDelRecurso> caracteristica;
+        private List<CaracteristicasDelRecurso> caracteristica;
         private TipoRecursoTecnologico tipoDeRecurso;
+        private CentroDeInvestigacion centroInvestigacion;
 
-        public RecursoTecnologico(int nroInventario, DateTime fechaAlta, Modelo modelo, int periodicidadMant, int duracionMant, List<Turno> listaTurno, List<CambioEstadoRT> cambiosEstadosRT, AsignacionRespTecnologico responsableTecnologico, List<CaracteristicaDelRecurso> caracteristica, TipoRecursoTecnologico tipoDeRecurso)
+        public RecursoTecnologico(int nroInventario, DateTime fechaAlta, Modelo modelo, int periodicidadMant, int duracionMant, List<Turno> listaTurno, List<CambioEstadoRT> cambiosEstadosRT, AsignacionRespTecnologico responsableTecnologico, List<CaracteristicasDelRecurso> caracteristica, TipoRecursoTecnologico tipoDeRecurso)
         {
             this.nroInventario = nroInventario;
             this.fechaAlta = fechaAlta;
@@ -41,51 +42,87 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         public List<Turno> ListaTurno { get => listaTurno; set => listaTurno = value; }
         public List<CambioEstadoRT> CambiosEstadosRT { get => cambiosEstadosRT; set => cambiosEstadosRT = value; }
         public AsignacionRespTecnologico ResponsableTecnologico { get => responsableTecnologico; set => responsableTecnologico = value; }
-        public List<CaracteristicaDelRecurso> Caracteristica { get => caracteristica; set => caracteristica = value; }
+        public List<CaracteristicasDelRecurso> Caracteristica { get => caracteristica; set => caracteristica = value; }
         internal TipoRecursoTecnologico TipoDeRecurso { get => tipoDeRecurso; set => tipoDeRecurso = value; }
 
-        public void buscarDatosRT(List<CentroDeInvestigacion> centrosDeInvestigacion)
+        
+        //public void buscarDatosRT(List<CentroDeInvestigacion> centrosDeInvestigacion)
+        //{
+        //    String nombreCI = "";
+        //    if (this.buscarEstadoActual() == true)
+        //    {
+        //        /*
+        //        En teoria esta seria la dependencia con el Centro de Investigacion
+        //        Con esto, sabriamos si el nombre del CI al cual pertenece el RT
+        //         */
+        //        foreach (CentroDeInvestigacion ci : centrosDeInvestigacion)
+        //        {
+        //            if (ci.esTuRecursoTecnologico(this) == true)
+        //            {
+        //                nombreCI = ci.getNombre();
+        //            }
+        //        }
+        //        /*
+        //        Faltan modeloYmarca + nroInventario
+        //        Verificar que debemos devolver, si un objeto con todos los datos o una lista
+        //         */
+        //    }
+        //    Object datosRt = new Object();
+
+        //    //return datosRt;
+        //}
+
+        //public Boolean buscarEstadoActual()
+        //{
+        //    Boolean esReservable = false;
+        //    if (!cambiosEstadosRT.isEmpty())
+        //    {
+        //        for (CambioEstadoRT c:cambiosEstadosRT)
+        //        {
+        //            if (c.esEstadoActual())
+        //            {
+        //                esReservable = c.esReservable();
+        //                break;
+        //            }
+        //        }
+        //    }
+        //    return esReservable;
+        //}
+
+        public bool esTipoRecursoSeleccinado(string tipoRecurso)
         {
-            String nombreCI = "";
-            if (this.buscarEstadoActual() == true)
-            {
-                /*
-                En teoria esta seria la dependencia con el Centro de Investigacion
-                Con esto, sabriamos si el nombre del CI al cual pertenece el RT
-                 */
-                for (CentroDeInvestigacion ci: centrosDeInvestigacion)
-                {
-                    if (ci.esTuRecursoTecnologico(this) == true)
-                    {
-                        nombreCI = ci.getNombre();
-                    }
-                }
-                /*
-                Faltan modeloYmarca + nroInventario
-                Verificar que debemos devolver, si un objeto con todos los datos o una lista
-                 */
-            }
-            Object datosRt = new Object();
-
-
-            //return datosRt;
+            return this.TipoDeRecurso.esSeleccionado(tipoRecurso);
         }
 
-        public Boolean buscarEstadoActual()
-        {
-            Boolean esReservable = false;
-            if (!cambiosEstadosRT.isEmpty())
-            {
-                for (CambioEstadoRT c:cambiosEstadosRT)
-                {
-                    if (c.esEstadoActual())
-                    {
-                        esReservable = c.esReservable();
-                        break;
-                    }
-                }
-            }
-            return esReservable;
-        }
+        //public bool esReservable()
+        //{
+        //    return this.cambiosEstadosRT.Last().esActual() && this.cambiosEstadosRT.Last().esReservable();
+        //}
+
+        //public List<Turno> obtenerTurnos(bool esCientificodelCentro) //Ver observacion 3 y resolver lo q pide
+        //{
+        //    List<Turno> turnosDisponibles = new List<Turno>();
+        //    DateTime date = DateTime.Now;
+
+        //    if (esCientificodelCentro)
+        //    {
+        //        foreach (Turno turno in listaTurno)
+        //            if (turno.validarFechaHoraInicio(date))
+        //            {
+        //                turnosDisponibles.Add(turno);
+        //            }
+
+        //    }
+        //    else
+        //    {
+        //        foreach (Turno turno in listaTurno)
+        //            if (turno.validarFechaHoraInicio(date.AddDays(centroInvestigacion.getTiempoAntelacionReserva())))
+        //            {
+        //                turnosDisponibles.Add(turno);
+        //            }
+        //    }
+
+        //    return turnosDisponibles;
+        //}
     }
 }

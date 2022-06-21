@@ -11,7 +11,15 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         private string nombre;
         private string clave;
         private bool habilitado;
-       
+        PersonalCientifico cientifico;
+
+        public Usuario(string nombre, string clave, bool habilitado, PersonalCientifico cientifico)
+        {
+            this.nombre = nombre;
+            this.clave = clave;
+            this.habilitado = habilitado;
+            this.cientifico = cientifico;
+        }
 
         public Usuario(string nombre, string clave, bool habilitado)
         {
@@ -20,8 +28,9 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             this.habilitado = habilitado;
         }
 
-        public string Nombre { get => nombre; set => nombre = value; }
-        public string Clave { get => clave; set => clave = value; }
-        public bool Habilitado { get => habilitado; set => habilitado = value; }
+        public Usuario getUsuario()
+        {
+            return this;
+        }
     }
 }
