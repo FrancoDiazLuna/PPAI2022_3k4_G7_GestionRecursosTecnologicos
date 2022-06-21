@@ -28,8 +28,6 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         public DateTime FechaHoraInicio { get => fechaHoraInicio; set => fechaHoraInicio = value; }
         public DateTime FechaHoraFin { get => fechaHoraFin; set => fechaHoraFin = value; }
 
-        public bool esPosteriorFechaHoraActual () { return DateTime.Compare(this.fechaHoraInicio, new DateTime()) > 0; }
-
         public CambioEstadoTurno obtenerCambioEstadoTurnoActual ()
         {
             foreach ( CambioEstadoTurno cet in cambioEstadoTurno)
@@ -49,7 +47,9 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             CambioEstadoTurno nuevoCambioEstado = new CambioEstadoTurno(estadoReservado, new DateTime());
         }   // Asociar cientifico q reserva, con el turno ?
 
-        public bool validarFechaHoraInicio(DateTime timeInicio)
+        public bool esPosteriorFechaHoraActual() { return DateTime.Compare(this.fechaHoraInicio, new DateTime()) > 0; }
+        // cual de los dos metodos esta en el diag?
+        public bool validarFechaHoraInicio(DateTime timeInicio) 
         {
             return this.fechaHoraInicio >= timeInicio;
         }
