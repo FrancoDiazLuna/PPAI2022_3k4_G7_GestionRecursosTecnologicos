@@ -8,23 +8,34 @@ namespace PPAI2022_3k4_G7_GestionRT.control
 {
     internal class GestorDeTurnosDeRecursoTecnologico
     {
-        //private TipoRecursoRepository tipoRecursoRepository
-        //private RecursoTecnologicoRepository recursoTecnologicoRepository;
-        //private CentrosDeInvestigacionRepository centrosDeInvestigacionRepository;
+
+
         
-        /*
-        public List<String> buscarTiposDeRT()
+        public List<string> buscarTiposDeRT()
         {
-            List<String> nombresTiposDeRT = new ArrayList<String>();
-            if (!tipoRecursoRepository.obtenerTiposDeRecursoTecnologico().isEmpty())
+            List<String> nombresTiposDeRT = new List<String>();
+            List<entidad.TipoRecursoTecnologico> tiposRT = CargaDeDatos.loadTiposRecursoTecnologico();
+            if (tiposRT.Count != 0)
             {
-                for (TipoRecursoTecnologico tr: tipoRecursoRepository.obtenerTiposDeRecursoTecnologico())
+                foreach(entidad.TipoRecursoTecnologico tipoRT in tiposRT )
                 {
-                    nombresTiposDeRT.add(tr.getNombre());
+                    nombresTiposDeRT.Add(tipoRT.Nombre);
                 }
             }
             return nombresTiposDeRT;
-        }*/
+        }
+
+        /*
+        public List<Object> buscarRTReservable(string tipoSeleccionado) {
+            List<Object> recursosTecnologicosReservables = new List<Object>();
+            List<entidad.RecursoTecnologico> listaRT = CargaDeDatos.loadRecursoTecnologico();
+            foreach(entidad.RecursoTecnologico RT in listaRT) {
+                if ( RT.esTuTipo(tipoSeleccionado) ) {
+                    //RT.buscarDatos();
+                }
+            }
+        }
+        */
 
     }
 }

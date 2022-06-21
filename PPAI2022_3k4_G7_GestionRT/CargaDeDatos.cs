@@ -30,6 +30,7 @@ namespace PPAI2022_3k4_G7_GestionRT
         public static TipoRecursoTecnologico tipoRecurso5 = new TipoRecursoTecnologico("Horno", "Descripcion");
         public static TipoRecursoTecnologico tipoRecurso6 = new TipoRecursoTecnologico("Resonador magnético", "Descripcion");
         public static TipoRecursoTecnologico tipoRecurso7 = new TipoRecursoTecnologico("Equipamiento de cómputo de datos de alto rendimiento", "Descripcion");
+        
 
         //Modelos en el sistema
         public static Modelo modelo = new Modelo("XZ3343");
@@ -91,7 +92,7 @@ namespace PPAI2022_3k4_G7_GestionRT
             return listaEstados;
         }
 
-
+        
         public static List<TipoRecursoTecnologico> loadTiposRecursoTecnologico()
         {
             List<TipoRecursoTecnologico> listaTipoRecursos = new List<TipoRecursoTecnologico>();
@@ -147,6 +148,15 @@ namespace PPAI2022_3k4_G7_GestionRT
             listaMarcas.Add(marca3);
 
             return listaMarcas;
+        }
+        public static List<RecursoTecnologico> loadRecursoTecnologico()
+        {
+            List<RecursoTecnologico> listaRT = new List<RecursoTecnologico>();
+            listaRT.Add(new RecursoTecnologico(1,fechaInicio,modelo1,20,2,null,null,null,null,tipoRecurso1));
+            listaRT.Add(new RecursoTecnologico(1,fechaInicio,modelo2,25,3,null,null,null,null,tipoRecurso2));
+            listaRT.Add(new RecursoTecnologico(1,fechaInicio,modelo3,30,4,null,null,null,null,tipoRecurso3));
+            listaRT.Add(new RecursoTecnologico(1,fechaInicio,modelo4,45,5,null,null,null,null,tipoRecurso4));
+            return listaRT;
         }
     }
 }
