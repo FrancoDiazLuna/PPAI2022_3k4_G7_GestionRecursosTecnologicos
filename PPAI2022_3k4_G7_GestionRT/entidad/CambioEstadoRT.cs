@@ -12,7 +12,7 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         private DateTime fechaHasta;
         private Estado estadoRT;
 
-        public CambioEstadoRT(DateTime fechaDesde, DateTime fechaHasta, Estado estado)
+        public CambioEstadoRT(Estado estado, DateTime fechaDesde, DateTime fechaHasta)
         {
             this.fechaDesde = fechaDesde;
             this.fechaHasta = fechaHasta;
