@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace PPAI2022_3k4_G7_GestionRT.entidad
 {
-    class Sesion
+    public class Sesion
     {
+        private DateTime fechaHoraInicio;
+        private DateTime fechaHoraFin;
+        private Usuario usuario;
     }
 }

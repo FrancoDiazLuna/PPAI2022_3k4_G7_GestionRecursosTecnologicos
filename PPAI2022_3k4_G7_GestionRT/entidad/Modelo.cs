@@ -8,7 +8,7 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
 {
     public class Modelo
     {
-        private String nombre;
+        private string nombre;
 
         public Modelo(string nombre)
         {

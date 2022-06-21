@@ -48,14 +48,16 @@
   <ItemGroup>
     <Compile Include="boundary\PantallaRegistroDeTurno.cs" />
     <Compile Include="control\GestorDeTurnosDeRecursoTecnologico.cs" />
-    <Compile Include="entidad\AsignacionRespTecnologico.cs" />
-    <Compile Include="entidad\CambioEstadoRT.cs" />
-    <Compile Include="entidad\CambioEstadoTurno.cs" />
-    <Compile Include="entidad\Caracteristicas.cs" />
-    <Compile Include="entidad\CaracteristicasDelRecurso.cs" />
-    <Compile Include="entidad\CentroDeInvestigacion.cs" />
-    <Compile Include="entidad\Estado.cs" />
+    <Compile Include="entidad\AsignacionCientifico.cs" />
+    <Compile Include="entidad\AsignacionDirector.cs" />
+    <Compile Include="entidad\Facultad.cs" />
+    <Compile Include="entidad\Marca.cs" />
+    <Compile Include="entidad\Modelo.cs" />
+    <Compile Include="entidad\PersonalCientifico.cs" />
+    <Compile Include="entidad\RecursoTecnologico.cs" />
+    <Compile Include="entidad\Sesion.cs" />
     <Compile Include="entidad\TipoRecursoTecnologico.cs" />
+    <Compile Include="entidad\Usuario.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
