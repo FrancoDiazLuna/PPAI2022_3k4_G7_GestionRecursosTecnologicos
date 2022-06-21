@@ -10,33 +10,25 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
     {
         private DateTime fechaDesde;
         private DateTime fechaHasta;
-        private Estado estado;
-
-        public DateTime FechaDesde { get => fechaDesde; set => fechaDesde = value; }
-        public DateTime FechaHasta { get => fechaHasta; set => fechaHasta = value; }
-        public Estado Estado { get => estado; set => estado = value; }
+        private Estado estadoRT;
 
         public CambioEstadoRT(DateTime fechaDesde, DateTime fechaHasta, Estado estado)
         {
             this.fechaDesde = fechaDesde;
             this.fechaHasta = fechaHasta;
-            Estado = estado;
+            this.estadoRT = estado;
         }
+        public DateTime FechaDesde { get => fechaDesde; set => fechaDesde = value; }
+        public DateTime FechaHasta { get => fechaHasta; set => fechaHasta = value; }
+        public Estado EstadoRT { get => estadoRT; set => estadoRT = value; }
 
-        public CambioEstadoRT(DateTime fechaDesde, Estado estado)
-        {
-            this.fechaDesde = fechaDesde;
-            this.estado = estado;
-        }
-
-        public bool esActual()
-        {
-            if (fechaHasta.ToShortDateString() == "1/1/0001")
-                return true;
-            else
-                return false;
+        public bool esActual() {
+            if ( this.fechaHasta != null) {
+                // si la fechaHasta es posterior a la fecha actual es resultado es int > 0
+                return DateTime.Compare(this.fechaHasta, new DateTime()) > 0;  
+            }
+            return false;
         }
     }
-
 }
 

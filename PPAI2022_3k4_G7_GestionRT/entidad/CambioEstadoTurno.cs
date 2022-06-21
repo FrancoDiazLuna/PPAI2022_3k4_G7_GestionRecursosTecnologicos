@@ -23,12 +23,16 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         public DateTime FechaFin { get => fechaFin; set => fechaFin = value; }
         public Estado EstadoTurno { get => estadoTurno; set => estadoTurno = value; }
 
-        public bool esActual()
-        {
-            if (fechaFin.ToShortDateString() == "1/1/0001")
-                return true;
-            else
-                return false;
+        public bool esActual() {
+            if (this.fechaFin != null)
+            {
+                // si la fechaHasta es posterior a la fecha actual es resultado es int > 0
+                return DateTime.Compare(this.fechaFin, new DateTime()) > 0;
+            }
+            return false;
         }
+
+        public bool esReservable () { return this.estadoTurno.esReservable(); }
+        public bool esCancelable () { return this.estadoTurno.esCancelable(); }
     }
 }
