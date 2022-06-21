@@ -60,7 +60,6 @@
     <Compile Include="entidad\CambioEstadoRT.cs" />
     <Compile Include="entidad\CambioEstadoTurno.cs" />
     <Compile Include="entidad\Caracteristica.cs" />
-    <Compile Include="entidad\Caracteristicas.cs" />
     <Compile Include="entidad\CaracteristicasDelRecurso.cs" />
     <Compile Include="entidad\CentroDeInvestigacion.cs" />
     <Compile Include="entidad\Estado.cs" />
