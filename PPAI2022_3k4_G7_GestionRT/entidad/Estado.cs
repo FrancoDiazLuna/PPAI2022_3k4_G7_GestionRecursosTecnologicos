@@ -18,18 +18,25 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         public string Ambito { get => ambito; set => ambito = value; }
         public string Descripcion { get => descripcion; set => descripcion = value; }
 
-        public Estado(string nombre, string ambito, string descripcion)
+        public Estado(string nombre, string ambito, string descripcion, bool reservable, bool cancelable)
         {
             this.nombre = nombre;
             this.ambito = ambito;
             this.descripcion = descripcion;
+            this.reservable = reservable;
+            this.cancelable = cancelable;
         }
+        
 
-        public bool esReservado() { return nombre == "Reservado"; }
+        //public bool esReservado() { return nombre == "Reservado"; }       huele aun mas raro
+        // internal bool esReservable() { return nombre == "Disponible"; }      huele raro
+        // Estado = (Nombre: "nomEst1", reservable: true , cancelable: false)
+        // Varios estados pueden ser Reservables o cancelables. esReservable y esCancelable NO SON ESTADOS
 
-        internal bool esReservable() { return nombre == "Disponible"; }
+        public bool esReservable() { return this.reservable; }
+        public bool esCancelable() { return this.cancelable; }
 
-        public bool esAmbitoTurno() { return ambito == "Turno"; }
+        public bool esAmbitoTurno(string ambito) { return this.ambito.Equals(ambito); }
 
 
     }

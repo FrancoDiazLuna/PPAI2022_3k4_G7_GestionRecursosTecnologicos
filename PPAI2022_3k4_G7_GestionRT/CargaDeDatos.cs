@@ -9,7 +9,7 @@ namespace PPAI2022_3k4_G7_GestionRT
 {
     public static class CargaDeDatos
     {
-        //Cientificos en el sistem
+        //Cientificos en el sistema
         public static PersonalCientifico cientifico1 = new PersonalCientifico(1234567, "nom1", "ape1", 12345678, 351234567, "correo1@gmail.com", "correo1@unc.com");
         public static PersonalCientifico cientifico2 = new PersonalCientifico(1234567, "nom2", "ape2", 12345678, 351234567,  "correo2@gmail.com", "correo2@unc.com");
         public static PersonalCientifico cientifico3 = new PersonalCientifico(1234567, "nom3", "ap3", 12345678, 351234567, "correo3@gmail.com", "correo3@unc.com");
@@ -30,6 +30,7 @@ namespace PPAI2022_3k4_G7_GestionRT
         public static TipoRecursoTecnologico tipoRecurso5 = new TipoRecursoTecnologico("Horno", "Descripcion");
         public static TipoRecursoTecnologico tipoRecurso6 = new TipoRecursoTecnologico("Resonador magnético", "Descripcion");
         public static TipoRecursoTecnologico tipoRecurso7 = new TipoRecursoTecnologico("Equipamiento de cómputo de datos de alto rendimiento", "Descripcion");
+        
 
         //Modelos en el sistema
         public static Modelo modelo = new Modelo("XZ3343");
@@ -49,24 +50,25 @@ namespace PPAI2022_3k4_G7_GestionRT
         public static Modelo modelo14 = new Modelo("SFS667");
 
         //Estados Recurso Tecnologico
-        public static Estado estadoRT1 = new Estado("En mantenimiento", "Descripcion", "Recurso");
-        public static Estado estadoRT2 = new Estado("Disponible", "Descripcion", "Recurso");
-        public static Estado estadoRT3 = new Estado("Mantenimiento correctivo", "Descripcion", "Recurso");
+        public static Estado estadoRT1 = new Estado("En mantenimiento", "Descripcion", "Recurso", false, false);
+        public static Estado estadoRT2 = new Estado("DisponibleRT", "Descripcion", "Recurso", true, false);
+        public static Estado estadoRT3 = new Estado("Mantenimiento correctivo", "Descripcion", "Recurso", false, false);
 
         //Estados Turno
-        public static Estado estadoTDisponible = new Estado("Disponible", "Descripcion", "Turno");
-        public static Estado estadoTPendiente = new Estado("Pendiente", "Descripcion", "Turno");
-        public static Estado estadoTReservado = new Estado("Reservado", "Descripcion", "Turno");
+        public static Estado estadoTDisponible = new Estado("Disponible", "Descripcion", "Turno", true, false);
+        public static Estado estadoTPendiente = new Estado("Pendiente", "Descripcion", "Turno", true, true);
+        public static Estado estadoTReservado = new Estado("Reservado", "Descripcion", "Turno" , true , false);
 
         //Cambios de estado Turno
-        //public static CambioEstadoTurno cet1 = new CambioEstadoTurno(fechaInicio, estadoTDisponible);
-        //public static CambioEstadoTurno cet2 = new CambioEstadoTurno(fechaInicio, estadoTPendiente);
-        //public static CambioEstadoTurno cet3 = new CambioEstadoTurno(fechaInicio, estadoTReservado);
+        public static CambioEstadoTurno cet1 = new CambioEstadoTurno(estadoTDisponible, new DateTime(2022, 06, 20) , new DateTime(2022, 06, 21));
+        public static CambioEstadoTurno cet2 = new CambioEstadoTurno(estadoTDisponible, new DateTime(2022, 06, 22) , new DateTime(2022, 06, 23));
+        public static CambioEstadoTurno cet3 = new CambioEstadoTurno(estadoTDisponible, new DateTime(2022, 06, 24), null);
+        
 
         //Cambios de estado RT
-        public static CambioEstadoRT cert1 = new CambioEstadoRT(fechaInicio, fechaFin, estadoRT1);
-        public static CambioEstadoRT cert2 = new CambioEstadoRT(fechaInicio, fechaFin, estadoRT2);
-        public static CambioEstadoRT cert3 = new CambioEstadoRT(fechaInicio, fechaFin, estadoRT3);
+        public static CambioEstadoRT cert1 = new CambioEstadoRT(estadoRT1, fechaInicio, fechaFin );
+        public static CambioEstadoRT cert2 = new CambioEstadoRT(estadoRT2, fechaInicio, fechaFin );
+        public static CambioEstadoRT cert3 = new CambioEstadoRT(estadoRT3, fechaInicio, fechaFin );
 
         //Marcas en el sistema
         public static Marca marca1 = new Marca("Nikon", new List<Modelo> { modelo, modelo1 });
@@ -90,7 +92,7 @@ namespace PPAI2022_3k4_G7_GestionRT
             return listaEstados;
         }
 
-
+        
         public static List<TipoRecursoTecnologico> loadTiposRecursoTecnologico()
         {
             List<TipoRecursoTecnologico> listaTipoRecursos = new List<TipoRecursoTecnologico>();
@@ -146,6 +148,15 @@ namespace PPAI2022_3k4_G7_GestionRT
             listaMarcas.Add(marca3);
 
             return listaMarcas;
+        }
+        public static List<RecursoTecnologico> loadRecursoTecnologico()
+        {
+            List<RecursoTecnologico> listaRT = new List<RecursoTecnologico>();
+            listaRT.Add(new RecursoTecnologico(1,fechaInicio,modelo1,20,2,null,null,null,null,tipoRecurso1));
+            listaRT.Add(new RecursoTecnologico(1,fechaInicio,modelo2,25,3,null,null,null,null,tipoRecurso2));
+            listaRT.Add(new RecursoTecnologico(1,fechaInicio,modelo3,30,4,null,null,null,null,tipoRecurso3));
+            listaRT.Add(new RecursoTecnologico(1,fechaInicio,modelo4,45,5,null,null,null,null,tipoRecurso4));
+            return listaRT;
         }
     }
 }

@@ -8,5 +8,7 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
 {
     public class Caracteristica
     {
+        private String nombre;
+        private String descripcion;
     }
 }

@@ -88,12 +88,12 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         //    }
         //    return esReservable;
         //}
-
-        public bool esTipoRecursoSeleccinado(string tipoRecurso)
+        
+        public bool esTuTipo(string nombreTipoRecurso)
         {
-            return this.TipoDeRecurso.esSeleccionado(tipoRecurso);
+            return this.tipoDeRecurso.esTuTipo(nombreTipoRecurso);
         }
-
+        
         //public bool esReservable()
         //{
         //    return this.cambiosEstadosRT.Last().esActual() && this.cambiosEstadosRT.Last().esReservable();

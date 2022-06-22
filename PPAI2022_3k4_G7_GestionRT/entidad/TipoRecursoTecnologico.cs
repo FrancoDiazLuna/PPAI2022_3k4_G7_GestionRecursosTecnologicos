@@ -10,7 +10,7 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
     {
         private string nombre;
         private string descripcion;
-        private List<Caracteristica> caracteristicas;
+        private List<Caracteristica> caracteristicas = new List<Caracteristica>();
 
         public TipoRecursoTecnologico(string nombre, string descripcion)
         {
@@ -18,11 +18,18 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             this.descripcion = descripcion;
         }
 
-        public bool esSeleccionado(string tipo)
+        public void agregarCaracteristica (Caracteristica caracteristica)
         {
-            return nombre == tipo;
+            caracteristicas.Add(caracteristica);
+        }
+        public string Nombre { get => nombre; set => nombre = value; }
+        public string Descripcion { get => descripcion; set => descripcion = value; }
+
+        
+        public bool esTuTipo(string tipoRT)
+        {
+            return nombre == tipoRT;
         }
 
-        public string getNombre() { return nombre; }
     }
 }
