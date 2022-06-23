@@ -21,7 +21,7 @@ namespace PPAI2022_3k4_G7_GestionRT
         private void reservaTurnoDeRecursoTecnológico_Click(object sender, EventArgs e)
         {
             ucRegistrarTurnoRT uc = new ucRegistrarTurnoRT();
-
+            GestorDeTurnosDeRecursoTecnologico gestor = new GestorDeTurnosDeRecursoTecnologico();
             showControl(uc);
 
         }

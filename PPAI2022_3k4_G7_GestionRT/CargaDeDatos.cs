@@ -372,5 +372,20 @@ namespace PPAI2022_3k4_G7_GestionRT
             }
             return rt;
         }
+
+        public static Turno getTurno(DateTime fechaHoraInicio, DayOfWeek diaSemana)
+        {
+            Turno t = null;
+            List<Turno> turnos = crearListaTurnos();
+            foreach (Turno turno in turnos)
+            {
+                if ( DateTime.Compare(fechaHoraInicio, turno.FechaHoraInicio)==0 && diaSemana== turno.DiaSemana)
+                {
+                    t = turno;
+                    break;
+                }
+            }
+            return t;
+        }
     }
 }

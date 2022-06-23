@@ -105,17 +105,32 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             return buscarCIdelRT(ci).buscarCientifico(deLaSesion);
         }
 
-        public List<Turno> getTurnosPosterioresFechaHoraActual(DateTime fechaActual)
+        public List<TurnoMuestra> getTurnosPosterioresFechaHoraActual(DateTime fechaActual)
         {
-            List<Turno> turnosPosterioresFechaHoraActual = new List<Turno>();
+            List<TurnoMuestra> turnosPosterioresFechaHoraActual = new List<TurnoMuestra>();
             foreach(Turno turno in listaTurno)
             {
-                if (turno.esPosteriorFechaHoraActual())
+                if (turno.esPosteriorFechaHoraActual(fechaActual))
                 {
-                    turno.
+                    turnosPosterioresFechaHoraActual.Add(turno.GetDatosTurno());
                 }
             }
             return turnosPosterioresFechaHoraActual;
+        }
+        public void actualizarEstadoTurno (Turno turno, Estado estadoReservado, DateTime fechaHoraActual) // metodo invocado desde el gestor
+        {
+            foreach(Turno t in listaTurno)
+            {
+                if (t.Equals(turno))
+                {
+                    t.reservarTurno(estadoReservado, fechaHoraActual);
+                    break;
+                }
+            }
+           
+            
+            // se necesita el objeto turnoSeleccionado
+            // se aplica el metodo --->  turnoSeleccionado.reservarTurno( estadoReservado, fechaHoraActual )
         }
     }
 }

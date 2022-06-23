@@ -13,6 +13,7 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         private DateTime fechaHoraInicio;
         private DateTime fechaHoraFin;
         private List<CambioEstadoTurno> cambioEstadoTurno = new List<CambioEstadoTurno>();
+       
 
         public Turno(DateTime fechaGeneracion, DayOfWeek diaSemana, DateTime fechaHoraInicio, DateTime fechaHoraFin, List<CambioEstadoTurno> cambioEstadoTurno)
         {
@@ -40,19 +41,34 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             return null;
         }
 
-        public void reservarTurno(Estado estadoReservado)
+        public void reservarTurno(Estado estadoReservado, DateTime fechaHoraActual )
         {
-            cambioEstadoTurno.Last().FechaFin = DateTime.Now;
+            CambioEstadoTurno cambioEstadoActual = buscarEstadoActual();  // busca el ultimo cambio de estado de turno
+            cambioEstadoActual.setFechaHoraHasta(fechaHoraActual);     // setea la fecha del fin de cambio de estado
 
-            var nuevoCambioEstado = new CambioEstadoTurno(this.fechaHoraInicio, estadoReservado);
-
+            // crea nuevocambio de estado "reservado"
+            CambioEstadoTurno nuevoCambioEstado = crearCambioDeEstado(estadoReservado,fechaHoraActual); 
+            
             cambioEstadoTurno.Add(nuevoCambioEstado);
         }
 
-        public bool esPosteriorFechaHoraActual() { 
-            
-            return DateTime.Compare(this.fechaHoraInicio, new DateTime()) > 0; 
+        public CambioEstadoTurno crearCambioDeEstado(Estado estadoReservado, DateTime fechaHoraInicio)
+        {
+            return new CambioEstadoTurno(this.fechaHoraInicio, estadoReservado);
         }
+        public bool esPosteriorFechaHoraActual(DateTime fechaActual)
+        {
+            return DateTime.Compare(this.fechaHoraInicio, fechaActual) > 0;
+        }
+
+        public TurnoMuestra GetDatosTurno() {
+            CambioEstadoTurno actual = buscarEstadoActual();
+            string estado = actual.getNombreEstado();
+            TurnoMuestra turno= new TurnoMuestra(this.DiaSemana, this.FechaHoraInicio, this.FechaHoraFin, estado);
+            return turno;
+        }      
+
+       
         // cual de los dos metodos esta en el diag?
         public bool validarFechaHoraInicio(DateTime timeInicio) 
         {

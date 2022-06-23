@@ -26,7 +26,7 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         }
 
         public DateTime FechaInicio { get => fechaInicio; set => fechaInicio = value; }
-        public DateTime FechaFin { get => fechaFin; set => fechaFin = value; }
+        public DateTime FechaFin { get => fechaFin; }
         public Estado EstadoTurno { get => estadoTurno; set => estadoTurno = value; }
 
         public bool esEstadoActual() {
@@ -36,8 +36,17 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             else
                 return false;
         }
+        public string getNombreEstado()
+        {
+            return estadoTurno.getNombre();
+        }
 
         public bool esReservable () { return this.estadoTurno.esReservable(); }
         public bool esCancelable () { return this.estadoTurno.esCancelable(); }
+
+        public void setFechaHoraHasta (DateTime fechaHoraFin)
+        {
+            this.fechaFin = fechaHoraFin;
+        }
     }
 }
