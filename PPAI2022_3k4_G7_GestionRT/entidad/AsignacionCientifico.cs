@@ -29,5 +29,10 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         {
             return this.fechaHasta == null;     
         }
+
+        public bool compararUsuario(Usuario usuario)
+        {
+            return cientifico.esTuUsuario(usuario);
+        }
     }
 }

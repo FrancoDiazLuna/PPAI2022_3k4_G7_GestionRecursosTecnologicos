@@ -18,7 +18,8 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         private AsignacionRespTecnologico responsableTecnologico;
         private List<CaracteristicasDelRecurso> caracteristica;
         private TipoRecursoTecnologico tipoDeRecurso;
-        private CentroDeInvestigacion centroInvestigacion;
+        private CambioEstadoRT cambioEstadoActual = null;
+
 
         public RecursoTecnologico(int nroInventario, Modelo modelo, TipoRecursoTecnologico tipoDeRecurso, List<CambioEstadoRT> cambiosEstadosRT, List<Turno> listaTurno)
         {
@@ -28,123 +29,93 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             this.cambiosEstadosRT = cambiosEstadosRT;
             this.tipoDeRecurso = tipoDeRecurso;
         }
-
-           
-        //public void buscarDatosRT(List<CentroDeInvestigacion> centrosDeInvestigacion)
-        //{
-        //    String nombreCI = "";
-        //    if (this.buscarEstadoActual() == true)
-        //    {
-        //        /*
-        //        En teoria esta seria la dependencia con el Centro de Investigacion
-        //        Con esto, sabriamos si el nombre del CI al cual pertenece el RT
-        //         */
-        //        foreach (CentroDeInvestigacion ci : centrosDeInvestigacion)
-        //        {
-        //            if (ci.esTuRecursoTecnologico(this) == true)
-        //            {
-        //                nombreCI = ci.getNombre();
-        //            }
-        //        }
-        //        /*
-        //        Faltan modeloYmarca + nroInventario
-        //        Verificar que debemos devolver, si un objeto con todos los datos o una lista
-        //         */
-        //    }
-        //    Object datosRt = new Object();
-
-        //    //return datosRt;
-        //}
-
-        //public Boolean buscarEstadoActual()
-        //{
-        //    Boolean esReservable = false;
-        //    if (!cambiosEstadosRT.isEmpty())
-        //    {
-        //        for (CambioEstadoRT c:cambiosEstadosRT)
-        //        {
-        //            if (c.esEstadoActual())
-        //            {
-        //                esReservable = c.esReservable();
-        //                break;
-        //            }
-        //        }
-        //    }
-        //    return esReservable;
-        //}
         
         public bool esTuTipo(string nombreTipoRecurso)
         {
             return this.tipoDeRecurso.esTuTipo(nombreTipoRecurso);
         }
 
-        public bool esReservable()
+        public CambioEstadoRT buscarEstadoActual()
         {
-            return this.cambiosEstadosRT.Last().esActual() && this.cambiosEstadosRT.Last().esReservable();
+            CambioEstadoRT cambioEstadoRT = null;
+
+            if (cambiosEstadosRT.Count>0)
+              {
+                foreach (CambioEstadoRT cambio in cambiosEstadosRT)                
+                  {
+                       if (cambio.esEstadoActual())
+                       { 
+                        cambioEstadoRT= cambio;
+                           break;
+                       }
+                   }
+               }
+
+            return cambioEstadoRT;
         }
-
-        public RecursoTecnologicoMuestra mostrarDatosDeRT(List<Marca> marcas)
+        
+        public RecursoTecnologicoMuestra buscarDatosRT(List<Marca> marcas, List<CentroDeInvestigacion> centrosInvestigacion)
         {
-            int nroInv = this.getNroInventario();
-            mostrarCentroDeInvest();
-            List<String> modeloYMarca = mostrarMarcaYModelo();
-            string nombreEstado = getEstadoRT();
-
-            return new RecursoTecnologicoMuestra(centroInvestigacion, nroInv, modeloYMarca[1], modeloYMarca[0], nombreEstado);
+            RecursoTecnologicoMuestra recurso = null;
+            cambioEstadoActual = buscarEstadoActual();
+            string centroDeInvestigacion = "";
+            if( cambioEstadoActual.esReservable() && cambioEstadoActual!= null)
+            {
+                if (buscarCIdelRT(centrosInvestigacion) != null)
+                {
+                    centroDeInvestigacion = buscarCIdelRT(centrosInvestigacion).getNombreCI();
+                }
+                int nroInv = this.getNroInventario();
+                List<String> modeloYMarca = mostrarMarcaYModelo(marcas);
+                string nombreEstado = cambioEstadoActual.EstadoRT.getNombre();
+                return new RecursoTecnologicoMuestra(centroDeInvestigacion, nroInv, modeloYMarca[1], modeloYMarca[0], nombreEstado);
+            }
+            return recurso;
         }
 
         public int getNroInventario() { return nroInventario; }
 
-        public void mostrarCentroDeInvest()
+        //se separa en un método aparte para reutilizarlo en buscarCientifico
+        public CentroDeInvestigacion buscarCIdelRT(List<CentroDeInvestigacion> ci)
         {
-            //Esto se realiza porque los datos estan Harcodeados
-            List<CentroDeInvestigacion> centrosInvestigacion = CargaDeDatos.listarCentros();
-            centrosInvestigacion[0].setRecursosTecnologicos(CargaDeDatos.loadRecursosTecnologicosC1());
-            centrosInvestigacion[1].setRecursosTecnologicos(CargaDeDatos.loadRecursosTecnologicosC2());
-            centrosInvestigacion[2].setRecursosTecnologicos(CargaDeDatos.loadRecursosTecnologicosC3());
-
-            foreach (CentroDeInvestigacion centro in centrosInvestigacion)
+            CentroDeInvestigacion centroInvestigacion = null;
+            foreach (CentroDeInvestigacion centro in ci)
             {
-                if (centro.obtenerCIdeRecursoTecnologico(this) != null)
+                if (centro.esTuRecursoTecnologico(this))
                 {
-                    centroInvestigacion = centro.obtenerCIdeRecursoTecnologico(this);
+                    centroInvestigacion = centro;
+                    break;
                 }
 
             }
+            return centroInvestigacion;
         }
 
-        public List<String> mostrarMarcaYModelo()
+     
+        public List<String> mostrarMarcaYModelo(List<Marca> marcas)
         {
-            List<String> modeloYMarca = this.modelo.obtenerModeloYMarca();
+            List<String> modeloYMarca = new List<string>();
+            modeloYMarca.Add(this.modelo.getNombreModelo());
+            modeloYMarca.Add(this.modelo.getMarca(marcas));
             return modeloYMarca;
         }
 
-        public string getEstadoRT() { return cambiosEstadosRT.Last<CambioEstadoRT>().getNombreEstado(); }
+        public bool buscarCientifico(List<CentroDeInvestigacion> ci, Usuario deLaSesion)
+        { 
+            return buscarCIdelRT(ci).buscarCientifico(deLaSesion);
+        }
 
-        //public List<Turno> obtenerTurnos(bool esCientificodelCentro) //Ver observacion 3 y resolver lo q pide
-        //{
-        //    List<Turno> turnosDisponibles = new List<Turno>();
-        //    DateTime date = DateTime.Now;
-
-        //    if (esCientificodelCentro)
-        //    {
-        //        foreach (Turno turno in listaTurno)
-        //            if (turno.validarFechaHoraInicio(date))
-        //            {
-        //                turnosDisponibles.Add(turno);
-        //            }
-
-        //    }
-        //    else
-        //    {
-        //        foreach (Turno turno in listaTurno)
-        //            if (turno.validarFechaHoraInicio(date.AddDays(centroInvestigacion.getTiempoAntelacionReserva())))
-        //            {
-        //                turnosDisponibles.Add(turno);
-        //            }
-        //    }
-
-        //    return turnosDisponibles;
-        //}
+        public List<Turno> getTurnosPosterioresFechaHoraActual(DateTime fechaActual)
+        {
+            List<Turno> turnosPosterioresFechaHoraActual = new List<Turno>();
+            foreach(Turno turno in listaTurno)
+            {
+                if (turno.esPosteriorFechaHoraActual())
+                {
+                    turno.
+                }
+            }
+            return turnosPosterioresFechaHoraActual;
+        }
     }
 }

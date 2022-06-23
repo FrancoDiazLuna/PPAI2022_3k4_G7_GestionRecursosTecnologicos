@@ -27,6 +27,7 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         private AsignacionRespTecnologico responsableTecnologico;
         private List<AsignacionCientifico> cientificos;
 
+        
         public CentroDeInvestigacion(string nombre, string sigla, string direccion, int tiempoAntelacionReserva, List<RecursoTecnologico> recursosTecnologicos, List<AsignacionCientifico> cientificos)
         {
             this.nombre = nombre;
@@ -35,6 +36,11 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             this.tiempoAntelacionReserva = tiempoAntelacionReserva;
             this.recursosTecnologicos = recursosTecnologicos;
             this.cientificos = cientificos;
+        }
+        
+        public string getNombreCI()
+        {
+            return nombre;
         }
 
         public void agregarRT(RecursoTecnologico rt)
@@ -64,14 +70,35 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             recursosTecnologicos = recursos;
         }
 
-        public CentroDeInvestigacion obtenerCIdeRecursoTecnologico(RecursoTecnologico recurso)
+        public List<RecursoTecnologico> getRecursosTecnologicos()
         {
-            if (recursosTecnologicos.Contains(recurso))
-            {
-                return this;
-            }
-            return null;
+            return recursosTecnologicos; 
         }
+        
+        public bool buscarCientifico(Usuario deLaSesion)
+        {
+             misCientificosActivos(deLaSesion);
+
+            return true;
+        }
+
+        public bool misCientificosActivos(Usuario deLaSesion)
+        {
+            bool validar = false;// validar nombre y si es lo que retorna
+            foreach(AsignacionCientifico asignacion in cientificos)
+            {
+                if(asignacion.EsCientificoActivo())
+                {
+                    if (asignacion.compararUsuario(deLaSesion))
+                    {
+                        validar = asignacion.compararUsuario(deLaSesion);
+                        break;
+                    }
+                }
+            }
+            return validar;
+        }
+
     }
 } 
 

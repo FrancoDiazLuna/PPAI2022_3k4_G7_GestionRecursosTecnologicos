@@ -48,5 +48,10 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         public string CorreoInstitucional { get => correoInstitucional; set => correoInstitucional = value; }
         public string CorreoPersonal { get => correoPersonal; set => correoPersonal = value; }
         public Usuario UsuarioPersonal { get => usuarioPersonal; set => usuarioPersonal = value; }
+        public bool esTuUsuario(Usuario usuario)
+        {
+            return usuario.Equals(usuarioPersonal);
+        }
+
     }
 }

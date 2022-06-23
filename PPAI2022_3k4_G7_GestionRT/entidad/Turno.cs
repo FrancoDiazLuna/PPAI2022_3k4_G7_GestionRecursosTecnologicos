@@ -28,11 +28,11 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         public DateTime FechaHoraInicio { get => fechaHoraInicio; set => fechaHoraInicio = value; }
         public DateTime FechaHoraFin { get => fechaHoraFin; set => fechaHoraFin = value; }
 
-        public CambioEstadoTurno obtenerCambioEstadoTurnoActual ()
+        public CambioEstadoTurno buscarEstadoActual ()
         {
             foreach ( CambioEstadoTurno cet in cambioEstadoTurno)
             {
-                if ( cet.esActual() )
+                if ( cet.esEstadoActual() )
                 {
                     return cet;
                 }
@@ -49,7 +49,10 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             cambioEstadoTurno.Add(nuevoCambioEstado);
         }
 
-        public bool esPosteriorFechaHoraActual() { return DateTime.Compare(this.fechaHoraInicio, new DateTime()) > 0; }
+        public bool esPosteriorFechaHoraActual() { 
+            
+            return DateTime.Compare(this.fechaHoraInicio, new DateTime()) > 0; 
+        }
         // cual de los dos metodos esta en el diag?
         public bool validarFechaHoraInicio(DateTime timeInicio) 
         {

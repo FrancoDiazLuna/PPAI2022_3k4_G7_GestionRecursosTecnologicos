@@ -9,7 +9,7 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
     public class RecursoTecnologicoMuestra
     {
         //ATRIBUTOS
-        private CentroDeInvestigacion centroDeInvestigacion;
+        private string centroDeInvestigacion;
         private int numeroInventario;
         private string marca;
         private string modelo;
@@ -19,9 +19,9 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         //METODOS
 
         // --> Metodo Constructor
-        public RecursoTecnologicoMuestra(CentroDeInvestigacion centroDeInv, int numeroInventario, string marca, string modelo, string estado)
+        public RecursoTecnologicoMuestra(string centroDeInv, int numeroInventario, string marca, string modelo, string estado)
         {
-            centroDeInvestigacion = centroDeInv;
+            this.centroDeInvestigacion= centroDeInv;
             this.numeroInventario = numeroInventario;
             this.marca = marca;
             this.modelo = modelo;
@@ -33,14 +33,10 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             this.color = nroColor;
         }
 
-        public CentroDeInvestigacion getCentroInvestigacion()
-        {
-            return centroDeInvestigacion;
-        }
-
-
-        //Getters&Setters
+       //Getters&Setters
         public string getEstado() { return estado; }
+
+        public string getCentroDeInvestigacion() { return centroDeInvestigacion; }
         public string getMarca() { return marca; }
         public string getModelo() { return modelo; }
         public int getNumetoInventario() { return numeroInventario; }

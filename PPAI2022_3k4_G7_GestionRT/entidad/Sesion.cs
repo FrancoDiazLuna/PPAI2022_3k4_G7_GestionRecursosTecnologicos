@@ -10,13 +10,17 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
     {
         private DateTime fechaHoraInicio;
         private DateTime fechaHoraFin;
-        private Usuario usuario;
+        private Usuario deLaSesion;
 
         public Sesion(DateTime fechaHoraInicio, DateTime fechaHoraFin, Usuario usuario)
         {
             this.fechaHoraInicio = fechaHoraInicio;
             this.fechaHoraFin = fechaHoraFin;
-            this.usuario = usuario;
+            this.deLaSesion = usuario;
+        }
+        public Usuario getUsuarioSesion()
+        {
+            return deLaSesion;
         }
 
 
