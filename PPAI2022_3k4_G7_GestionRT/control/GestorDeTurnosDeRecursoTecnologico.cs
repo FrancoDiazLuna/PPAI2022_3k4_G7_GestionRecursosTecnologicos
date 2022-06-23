@@ -28,12 +28,12 @@ namespace PPAI2022_3k4_G7_GestionRT.control
             return nombresTiposDeRT;
         }
 
-        public void tomarSeleccionTipoRecursoTecnologico(string tipoRecursoSeleccionado)
+        public void tipoDeRTSeleccionado(string tipoRecursoSeleccionado)
         {
-            buscarRTPorTipoRTValido(tipoRecursoSeleccionado);
+            buscarRT(tipoRecursoSeleccionado);
         }
 
-        public void buscarRTPorTipoRTValido(string tipoRecursoSeleccionado)
+        public void buscarRT(string tipoRecursoSeleccionado)
         {
             List<CentroDeInvestigacion> centrosInvestigacion = CargaDeDatos.listarCentros();
             centrosInvestigacion[0].setRecursosTecnologicos(CargaDeDatos.loadRecursosTecnologicosC1());
@@ -64,18 +64,19 @@ namespace PPAI2022_3k4_G7_GestionRT.control
                 listaRecursosMuestra.Add(recurso.mostrarDatosDeRT(CargaDeDatos.loadMarcas()));
             }*/
 
-            agruparRTPorCentroInvestigacion();
-            asignarColorPorEstadoDeRT();
-
             
+            marcarColorXEstado();
+            agruparRTPorCentroInvestigacion();
+
+
         }
 
         public void agruparRTPorCentroInvestigacion()
         {
-            listaRecursosMuestra.OrderBy(x => x.getCentroInvestigacion());
+            listaRecursosMuestra.OrderBy(x => x.getCentroDeInvestigacion());
         }
 
-        public void asignarColorPorEstadoDeRT()
+        public void marcarColorXEstado()
         {
             foreach (RecursoTecnologicoMuestra recurso in listaRecursosMuestra)
             {

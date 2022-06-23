@@ -35,6 +35,8 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
 
        //Getters&Setters
         public string getEstado() { return estado; }
+
+        public string getCentroDeInvestigacion() { return centroDeInvestigacion; }
         public string getMarca() { return marca; }
         public string getModelo() { return modelo; }
         public int getNumetoInventario() { return numeroInventario; }

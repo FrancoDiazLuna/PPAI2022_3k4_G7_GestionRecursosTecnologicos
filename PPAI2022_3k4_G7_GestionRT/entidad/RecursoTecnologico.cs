@@ -29,50 +29,6 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             this.cambiosEstadosRT = cambiosEstadosRT;
             this.tipoDeRecurso = tipoDeRecurso;
         }
-
-           
-        //public void buscarDatosRT(List<CentroDeInvestigacion> centrosDeInvestigacion)
-        //{
-        //    String nombreCI = "";
-        //    if (this.buscarEstadoActual() == true)
-        //    {
-        //        /*
-        //        En teoria esta seria la dependencia con el Centro de Investigacion
-        //        Con esto, sabriamos si el nombre del CI al cual pertenece el RT
-        //         */
-        //        foreach (CentroDeInvestigacion ci : centrosDeInvestigacion)
-        //        {
-        //            if (ci.esTuRecursoTecnologico(this) == true)
-        //            {
-        //                nombreCI = ci.getNombre();
-        //            }
-        //        }
-        //        /*
-        //        Faltan modeloYmarca + nroInventario
-        //        Verificar que debemos devolver, si un objeto con todos los datos o una lista
-        //         */
-        //    }
-        //    Object datosRt = new Object();
-
-        //    //return datosRt;
-        //}
-
-        //public Boolean buscarEstadoActual()
-        //{
-        //    Boolean esReservable = false;
-        //    if (!cambiosEstadosRT.isEmpty())
-        //    {
-        //        for (CambioEstadoRT c:cambiosEstadosRT)
-        //        {
-        //            if (c.esEstadoActual())
-        //            {
-        //                esReservable = c.esReservable();
-        //                break;
-        //            }
-        //        }
-        //    }
-        //    return esReservable;
-        //}
         
         public bool esTuTipo(string nombreTipoRecurso)
         {
@@ -133,32 +89,6 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             return modeloYMarca;
         }
 
-       
-
-        //public List<Turno> obtenerTurnos(bool esCientificodelCentro) //Ver observacion 3 y resolver lo q pide
-        //{
-        //    List<Turno> turnosDisponibles = new List<Turno>();
-        //    DateTime date = DateTime.Now;
-
-        //    if (esCientificodelCentro)
-        //    {
-        //        foreach (Turno turno in listaTurno)
-        //            if (turno.validarFechaHoraInicio(date))
-        //            {
-        //                turnosDisponibles.Add(turno);
-        //            }
-
-        //    }
-        //    else
-        //    {
-        //        foreach (Turno turno in listaTurno)
-        //            if (turno.validarFechaHoraInicio(date.AddDays(centroInvestigacion.getTiempoAntelacionReserva())))
-        //            {
-        //                turnosDisponibles.Add(turno);
-        //            }
-        //    }
-
-        //    return turnosDisponibles;
-        //}
+     
     }
 }
