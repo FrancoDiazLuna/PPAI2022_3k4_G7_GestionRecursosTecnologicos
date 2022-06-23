@@ -16,6 +16,7 @@ namespace PPAI2022_3k4_G7_GestionRT.control
         private Usuario deLaSesion;
         private RecursoTecnologico seleccionado;
         List<CentroDeInvestigacion> centrosInvestigacion = CargaDeDatos.listarCentros();
+        private Turno turnoSeleccion;
         DateTime fechaActual;
         
 
@@ -87,47 +88,54 @@ namespace PPAI2022_3k4_G7_GestionRT.control
                 }
             }
         }
-        public List<> recursoTecnologicoSeleccionado(RecursoTecnologicoMuestra RtSeleccionado)
+        public List<TurnoMuestra> recursoTecnologicoSeleccionado(RecursoTecnologicoMuestra RtSeleccionado)
         {
             seleccionado = CargaDeDatos.getRecursoPorNroInventario(RtSeleccionado.getNumetoInventario(), RtSeleccionado.getCentroDeInvestigacion());
             obtenerUsuarioLogueado();
             if (verificarCIDelUsuario())
             {
                 getFechaHoraActual();
-                List<Turnos> listaTurnos = seleccionado.getTurnosPosterioresFechaHoraActual(fechaActual);
-
-            }
-           
-
-
-
-
-           
+                List<TurnoMuestra> listaTurnos = seleccionado.getTurnosPosterioresFechaHoraActual(fechaActual);
+                // aca se llama al metodo clasificar por colores 
+                return listaTurnos;
+             }
+            return null;
         }
 
         public void obtenerUsuarioLogueado()
         {
-           return deLaSesion = activa.getUsuarioSesion();
+           deLaSesion = activa.getUsuarioSesion();
         }
 
         public bool verificarCIDelUsuario() {            
             return seleccionado.buscarCientifico(centrosInvestigacion, deLaSesion);
         }
+        public void turnoSeleccionado(TurnoMuestra turnoMuestra)
+        {
+            turnoSeleccion = CargaDeDatos.getTurno(turnoMuestra.FechaHoraInicio, turnoMuestra.DiaSemana);
+        }
 
-        public 
+        public void confirmarReservaDeTurno()
+        {
+            registrarConfirmacionDeReservaDeTurno();
+        }
 
         public void registrarConfirmacionDeReservaDeTurno()
         {
             Estado estadoReservado = buscarEstadoReservado();
-            // seguir con el metodo
+            seleccionado.actualizarEstadoTurno(turnoSeleccion, estadoReservado, fechaActual);
 
         }
         public Estado buscarEstadoReservado()
         {
-            List<Estados> listaEstados = CargaDeDatos.loadEstados();
-            foreach (Estado est in listaEstados )
+            List<Estado> listaEstados = CargaDeDatos.loadEstados();
+            foreach (Estado est in listaEstados)
             {
-                if (est.esReservado()) { return est; }
+                if (est.esAmbitoTurno()) {
+                    if (est.esReservable()) {
+                        return est;
+                    }
+                }
             }
             return null;
         }
@@ -135,7 +143,12 @@ namespace PPAI2022_3k4_G7_GestionRT.control
         public void getFechaHoraActual()
         {
             fechaActual = DateTime.Now;           
-        } 
+        }
+        
+        public void generarNotificacionReservaDeTurno()
+        {
+            
+        }
            
     }
 }
