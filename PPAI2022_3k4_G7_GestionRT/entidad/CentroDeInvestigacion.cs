@@ -27,6 +27,8 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         private AsignacionRespTecnologico responsableTecnologico;
         private List<AsignacionCientifico> cientificos;
 
+      
+
         public CentroDeInvestigacion(string nombre, string sigla, string direccion, int tiempoAntelacionReserva, List<RecursoTecnologico> recursosTecnologicos, List<AsignacionCientifico> cientificos)
         {
             this.nombre = nombre;
@@ -35,6 +37,11 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             this.tiempoAntelacionReserva = tiempoAntelacionReserva;
             this.recursosTecnologicos = recursosTecnologicos;
             this.cientificos = cientificos;
+        }
+        
+        public string getNombreCI()
+        {
+            return nombre;
         }
 
         public void agregarRT(RecursoTecnologico rt)
@@ -64,14 +71,7 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             recursosTecnologicos = recursos;
         }
 
-        public CentroDeInvestigacion obtenerCIdeRecursoTecnologico(RecursoTecnologico recurso)
-        {
-            if (recursosTecnologicos.Contains(recurso))
-            {
-                return this;
-            }
-            return null;
-        }
+      
     }
 } 
 

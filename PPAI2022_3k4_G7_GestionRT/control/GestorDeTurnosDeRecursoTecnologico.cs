@@ -13,7 +13,7 @@ namespace PPAI2022_3k4_G7_GestionRT.control
         private List<RecursoTecnologico> listaRecursoTecnologicosDisponibles;
         private List<RecursoTecnologicoMuestra> listaRecursosMuestra;
 
-
+        // metodo 1
         public List<string> buscarTiposDeRT()
         {
             List<String> nombresTiposDeRT = new List<String>();
@@ -35,29 +35,34 @@ namespace PPAI2022_3k4_G7_GestionRT.control
 
         public void buscarRTPorTipoRTValido(string tipoRecursoSeleccionado)
         {
-
+            List<CentroDeInvestigacion> centrosInvestigacion = CargaDeDatos.listarCentros();
+            centrosInvestigacion[0].setRecursosTecnologicos(CargaDeDatos.loadRecursosTecnologicosC1());
+            centrosInvestigacion[1].setRecursosTecnologicos(CargaDeDatos.loadRecursosTecnologicosC2());
+            centrosInvestigacion[2].setRecursosTecnologicos(CargaDeDatos.loadRecursosTecnologicosC3());
             listaRecursosTecnologicosValidos = new List<RecursoTecnologico>();
 
             foreach (RecursoTecnologico recurso in listaRecursoTecnologicosDisponibles)
             {
                 if (recurso.esTuTipo(tipoRecursoSeleccionado))
                 {
-                    //listaRecursosTecnologicosValidos.Add(recurso); --> MOSTRAR RT QUE NO ESTAN DISPONIBLES - COLORES
 
+                    recurso.buscarDatosRT(CargaDeDatos.loadMarcas(), centrosInvestigacion);
+                    //listaRecursosTecnologicosValidos.Add(recurso); --> MOSTRAR RT QUE NO ESTAN DISPONIBLES - COLORES
+                    /*
                     if (recurso.esReservable())
                     {
                         listaRecursosTecnologicosValidos.Add(recurso);
-                    }
+                    }*/
                 }
 
             }
-
+            /*
             listaRecursosMuestra = new List<RecursoTecnologicoMuestra>();
 
             foreach (RecursoTecnologico recurso in listaRecursosTecnologicosValidos)
             {
                 listaRecursosMuestra.Add(recurso.mostrarDatosDeRT(CargaDeDatos.loadMarcas()));
-            }
+            }*/
 
             agruparRTPorCentroInvestigacion();
             asignarColorPorEstadoDeRT();
@@ -91,5 +96,26 @@ namespace PPAI2022_3k4_G7_GestionRT.control
                 }
             }
         }
+        public List<> buscarTurnosDelRTseleccionado(RecursoTecnologico RT)
+        {
+            List<Turnos> listaTurnos = RT.getTurnosPosterioresFechaHoraActual();
+        }
+
+        public void registrarConfirmacionDeReservaDeTurno()
+        {
+            Estado estadoReservado = buscarEstadoReservado();
+            // seguir con el metodo
+
+        }
+        public Estado buscarEstadoReservado()
+        {
+            List<Estados> listaEstados = CargaDeDatos.loadEstados();
+            foreach (Estado est in listaEstados )
+            {
+                if (est.esReservado()) { return est; }
+            }
+            return null;
+        }
     }
 }
+                                                 

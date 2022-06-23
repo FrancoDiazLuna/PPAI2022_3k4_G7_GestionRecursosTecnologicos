@@ -18,7 +18,8 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         private AsignacionRespTecnologico responsableTecnologico;
         private List<CaracteristicasDelRecurso> caracteristica;
         private TipoRecursoTecnologico tipoDeRecurso;
-        private CentroDeInvestigacion centroInvestigacion;
+        private CambioEstadoRT cambioEstadoActual = null;
+
 
         public RecursoTecnologico(int nroInventario, Modelo modelo, TipoRecursoTecnologico tipoDeRecurso, List<CambioEstadoRT> cambiosEstadosRT, List<Turno> listaTurno)
         {
@@ -78,48 +79,61 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             return this.tipoDeRecurso.esTuTipo(nombreTipoRecurso);
         }
 
-        public bool esReservable()
+        public CambioEstadoRT buscarEstadoActual()
         {
-            return this.cambiosEstadosRT.Last().esActual() && this.cambiosEstadosRT.Last().esReservable();
+            CambioEstadoRT cambioEstadoRT = null;
+
+            if (cambiosEstadosRT.Count>0)
+              {
+                foreach (CambioEstadoRT cambio in cambiosEstadosRT)                
+                  {
+                       if (cambio.esEstadoActual())
+                       { 
+                        cambioEstadoRT= cambio;
+                           break;
+                       }
+                   }
+               }
+
+            return cambioEstadoRT;
         }
-
-        public RecursoTecnologicoMuestra mostrarDatosDeRT(List<Marca> marcas)
+        
+        public RecursoTecnologicoMuestra buscarDatosRT(List<Marca> marcas, List<CentroDeInvestigacion> centrosInvestigacion)
         {
-            int nroInv = this.getNroInventario();
-            mostrarCentroDeInvest();
-            List<String> modeloYMarca = mostrarMarcaYModelo();
-            string nombreEstado = getEstadoRT();
+            RecursoTecnologicoMuestra recurso = null;
+            cambioEstadoActual = buscarEstadoActual();
+            string centroDeInvestigacion = "";
+            if( cambioEstadoActual.esReservable() && cambioEstadoActual!= null)
+            {
+                foreach (CentroDeInvestigacion centro in centrosInvestigacion)
+                {
+                    if (centro.esTuRecursoTecnologico(this))
+                    {
+                        centroDeInvestigacion = centro.getNombreCI();
+                        break;
+                    }
 
-            return new RecursoTecnologicoMuestra(centroInvestigacion, nroInv, modeloYMarca[1], modeloYMarca[0], nombreEstado);
+                }
+                int nroInv = this.getNroInventario();
+                List<String> modeloYMarca = mostrarMarcaYModelo(marcas);
+                string nombreEstado = cambioEstadoActual.EstadoRT.getNombre();
+                return new RecursoTecnologicoMuestra(centroDeInvestigacion, nroInv, modeloYMarca[1], modeloYMarca[0], nombreEstado);
+            }
+            return recurso;
         }
 
         public int getNroInventario() { return nroInventario; }
 
-        public void mostrarCentroDeInvest()
+     
+        public List<String> mostrarMarcaYModelo(List<Marca> marcas)
         {
-            //Esto se realiza porque los datos estan Harcodeados
-            List<CentroDeInvestigacion> centrosInvestigacion = CargaDeDatos.listarCentros();
-            centrosInvestigacion[0].setRecursosTecnologicos(CargaDeDatos.loadRecursosTecnologicosC1());
-            centrosInvestigacion[1].setRecursosTecnologicos(CargaDeDatos.loadRecursosTecnologicosC2());
-            centrosInvestigacion[2].setRecursosTecnologicos(CargaDeDatos.loadRecursosTecnologicosC3());
-
-            foreach (CentroDeInvestigacion centro in centrosInvestigacion)
-            {
-                if (centro.obtenerCIdeRecursoTecnologico(this) != null)
-                {
-                    centroInvestigacion = centro.obtenerCIdeRecursoTecnologico(this);
-                }
-
-            }
-        }
-
-        public List<String> mostrarMarcaYModelo()
-        {
-            List<String> modeloYMarca = this.modelo.obtenerModeloYMarca();
+            List<String> modeloYMarca = new List<string>();
+            modeloYMarca.Add(this.modelo.getNombreModelo());
+            modeloYMarca.Add(this.modelo.getMarca(marcas));
             return modeloYMarca;
         }
 
-        public string getEstadoRT() { return cambiosEstadosRT.Last<CambioEstadoRT>().getNombreEstado(); }
+       
 
         //public List<Turno> obtenerTurnos(bool esCientificodelCentro) //Ver observacion 3 y resolver lo q pide
         //{

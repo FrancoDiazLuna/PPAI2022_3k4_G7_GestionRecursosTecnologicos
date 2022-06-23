@@ -15,25 +15,24 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             this.nombre = nombre;
         }
 
-        public string Nombre { get => nombre; set => nombre = value; }
+        public string getNombreModelo() { return nombre; }
 
-        public List<String> obtenerModeloYMarca()
+        public string getMarca(List<Marca> marcas)
         {
-            //Primero modelo y despues marca
-            var modeloYMarca = new List<String>();
-            modeloYMarca.Add(nombre);
-            var marcas = CargaDeDatos.loadMarcas();
+            string nombreMarca = "";
             foreach (var marca in marcas)
             {
                 if (marca.esDeEstaMarca(this))
                 {
-                    modeloYMarca.Add(marca.getNombre());
+                    nombreMarca= marca.getNombre();
 
                 }
             }
+            return nombreMarca;
 
 
-            return modeloYMarca;
         }
+
+    
     }
 }
