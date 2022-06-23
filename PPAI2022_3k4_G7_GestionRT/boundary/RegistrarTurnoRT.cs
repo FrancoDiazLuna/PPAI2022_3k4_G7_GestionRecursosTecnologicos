@@ -7,7 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Pabo.Calendar;
 using PPAI2022_3k4_G7_GestionRT.control;
+using PPAI2022_3k4_G7_GestionRT.entidad;
 
 namespace PPAI2022_3k4_G7_GestionRT.boundary
 {
@@ -32,5 +34,13 @@ namespace PPAI2022_3k4_G7_GestionRT.boundary
         {
             gestor.tomarSeleccionTipoRecursoTecnologico(cmbTipoRecurso.SelectedItem.ToString());
         }
+
+        private void btnReservar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+
     }
 }
