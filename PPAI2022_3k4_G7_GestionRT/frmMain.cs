@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PPAI2022_3k4_G7_GestionRT.boundary;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,34 @@ namespace PPAI2022_3k4_G7_GestionRT
         public frmMain()
         {
             InitializeComponent();
+        }
+
+        private void reservaTurnoDeRecursoTecnológico_Click(object sender, EventArgs e)
+        {
+            ucRegistrarTurnoRT uc = new ucRegistrarTurnoRT();
+            showControl(uc);
+
+        }
+
+        public void showControl(Control control)
+        {
+            limpiarPanelPrincipal();
+
+            control.Dock = DockStyle.Fill;
+            control.BringToFront();
+            control.Focus();
+
+            panelMain.Controls.Add(control);
+        }
+
+        private void limpiarPanelPrincipal()
+        {
+            panelMain.Controls.Clear();
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

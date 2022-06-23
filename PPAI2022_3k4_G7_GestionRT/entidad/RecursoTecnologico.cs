@@ -20,32 +20,16 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         private TipoRecursoTecnologico tipoDeRecurso;
         private CentroDeInvestigacion centroInvestigacion;
 
-        public RecursoTecnologico(int nroInventario, DateTime fechaAlta, Modelo modelo, int periodicidadMant, int duracionMant, List<Turno> listaTurno, List<CambioEstadoRT> cambiosEstadosRT, AsignacionRespTecnologico responsableTecnologico, List<CaracteristicasDelRecurso> caracteristica, TipoRecursoTecnologico tipoDeRecurso)
+        public RecursoTecnologico(int nroInventario, Modelo modelo, TipoRecursoTecnologico tipoDeRecurso, List<CambioEstadoRT> cambiosEstadosRT, List<Turno> listaTurno)
         {
             this.nroInventario = nroInventario;
-            this.fechaAlta = fechaAlta;
             this.modelo = modelo;
-            this.periodicidadMant = periodicidadMant;
-            this.duracionMant = duracionMant;
             this.listaTurno = listaTurno;
             this.cambiosEstadosRT = cambiosEstadosRT;
-            this.responsableTecnologico = responsableTecnologico;
-            this.caracteristica = caracteristica;
             this.tipoDeRecurso = tipoDeRecurso;
         }
 
-        public int NroInventario { get => nroInventario; set => nroInventario = value; }
-        public DateTime FechaAlta { get => fechaAlta; set => fechaAlta = value; }
-        public Modelo Modelo { get => modelo; set => modelo = value; }
-        public int PeriodicidadMant { get => periodicidadMant; set => periodicidadMant = value; }
-        public int DuracionMant { get => duracionMant; set => duracionMant = value; }
-        public List<Turno> ListaTurno { get => listaTurno; set => listaTurno = value; }
-        public List<CambioEstadoRT> CambiosEstadosRT { get => cambiosEstadosRT; set => cambiosEstadosRT = value; }
-        public AsignacionRespTecnologico ResponsableTecnologico { get => responsableTecnologico; set => responsableTecnologico = value; }
-        public List<CaracteristicasDelRecurso> Caracteristica { get => caracteristica; set => caracteristica = value; }
-        internal TipoRecursoTecnologico TipoDeRecurso { get => tipoDeRecurso; set => tipoDeRecurso = value; }
-
-        
+           
         //public void buscarDatosRT(List<CentroDeInvestigacion> centrosDeInvestigacion)
         //{
         //    String nombreCI = "";
@@ -93,11 +77,49 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         {
             return this.tipoDeRecurso.esTuTipo(nombreTipoRecurso);
         }
-        
-        //public bool esReservable()
-        //{
-        //    return this.cambiosEstadosRT.Last().esActual() && this.cambiosEstadosRT.Last().esReservable();
-        //}
+
+        public bool esReservable()
+        {
+            return this.cambiosEstadosRT.Last().esActual() && this.cambiosEstadosRT.Last().esReservable();
+        }
+
+        public RecursoTecnologicoMuestra mostrarDatosDeRT(List<Marca> marcas)
+        {
+            int nroInv = this.getNroInventario();
+            mostrarCentroDeInvest();
+            List<String> modeloYMarca = mostrarMarcaYModelo();
+            string nombreEstado = getEstadoRT();
+
+            return new RecursoTecnologicoMuestra(centroInvestigacion, nroInv, modeloYMarca[1], modeloYMarca[0], nombreEstado);
+        }
+
+        public int getNroInventario() { return nroInventario; }
+
+        public void mostrarCentroDeInvest()
+        {
+            //Esto se realiza porque los datos estan Harcodeados
+            List<CentroDeInvestigacion> centrosInvestigacion = CargaDeDatos.listarCentros();
+            centrosInvestigacion[0].setRecursosTecnologicos(CargaDeDatos.loadRecursosTecnologicosC1());
+            centrosInvestigacion[1].setRecursosTecnologicos(CargaDeDatos.loadRecursosTecnologicosC2());
+            centrosInvestigacion[2].setRecursosTecnologicos(CargaDeDatos.loadRecursosTecnologicosC3());
+
+            foreach (CentroDeInvestigacion centro in centrosInvestigacion)
+            {
+                if (centro.obtenerCIdeRecursoTecnologico(this) != null)
+                {
+                    centroInvestigacion = centro.obtenerCIdeRecursoTecnologico(this);
+                }
+
+            }
+        }
+
+        public List<String> mostrarMarcaYModelo()
+        {
+            List<String> modeloYMarca = this.modelo.obtenerModeloYMarca();
+            return modeloYMarca;
+        }
+
+        public string getEstadoRT() { return cambiosEstadosRT.Last<CambioEstadoRT>().getNombreEstado(); }
 
         //public List<Turno> obtenerTurnos(bool esCientificodelCentro) //Ver observacion 3 y resolver lo q pide
         //{

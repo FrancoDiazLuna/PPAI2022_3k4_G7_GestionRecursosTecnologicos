@@ -7,14 +7,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PPAI2022_3k4_G7_GestionRT.control;
 
 namespace PPAI2022_3k4_G7_GestionRT.boundary
 {
-    public partial class RegistrarTurnoRT : UserControl
+    public partial class ucRegistrarTurnoRT : UserControl
     {
-        public RegistrarTurnoRT()
+        private GestorDeTurnosDeRecursoTecnologico gestor;
+        
+        public ucRegistrarTurnoRT()
         {
             InitializeComponent();
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("¿Está seguro desea cancelar la reserva del turno de recurso tecnológico?", "Importante", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            {
+                this.Dispose();
+            }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            gestor.tomarSeleccionTipoRecursoTecnologico(cmbTipoRecurso.SelectedItem.ToString());
         }
     }
 }

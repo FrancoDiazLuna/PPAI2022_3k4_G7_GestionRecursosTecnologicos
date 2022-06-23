@@ -21,30 +21,20 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         private string caracteristicasGenerales;
         private string edificio;
         private string coordenadas;
-
-        private List<RecursoTecnologico> recursosTecnologicos = new List<RecursoTecnologico>();
+        private int tiempoAntelacionReserva;
+        private List<RecursoTecnologico> recursosTecnologicos;
         private AsignacionDirector directorCI;
         private AsignacionRespTecnologico responsableTecnologico;
         private List<AsignacionCientifico> cientificos;
 
-        public CentroDeInvestigacion(string nombre, string sigla, string direccion, string email, int nroResolucion, DateTime fechaResolucion, string reglamento, DateTime fechaAlta, DateTime fechaBaja, string motivoBaja, string caracteristicasGenerales, string edificio, string coordenadas, AsignacionDirector directorCI)
+        public CentroDeInvestigacion(string nombre, string sigla, string direccion, int tiempoAntelacionReserva, List<RecursoTecnologico> recursosTecnologicos, List<AsignacionCientifico> cientificos)
         {
             this.nombre = nombre;
             this.sigla = sigla;
             this.direccion = direccion;
-            this.email = email;
-            this.nroResolucion = nroResolucion;
-            this.fechaResolucion = fechaResolucion;
-            this.reglamento = reglamento;
-            this.fechaAlta = fechaAlta;
-            this.fechaBaja = fechaBaja;
-            this.motivoBaja = motivoBaja;
-            this.caracteristicasGenerales = caracteristicasGenerales;
-            this.edificio = edificio;
-            this.coordenadas = coordenadas;
-            this.directorCI = directorCI;
-            this.nombre = nombre;
-            this.direccion = direccion;
+            this.tiempoAntelacionReserva = tiempoAntelacionReserva;
+            this.recursosTecnologicos = recursosTecnologicos;
+            this.cientificos = cientificos;
         }
 
         public void agregarRT(RecursoTecnologico rt)
@@ -69,9 +59,19 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             return esTuRecurso;
         }
 
+        public void setRecursosTecnologicos(List<RecursoTecnologico> recursos)
+        {
+            recursosTecnologicos = recursos;
+        }
 
-
-
+        public CentroDeInvestigacion obtenerCIdeRecursoTecnologico(RecursoTecnologico recurso)
+        {
+            if (recursosTecnologicos.Contains(recurso))
+            {
+                return this;
+            }
+            return null;
+        }
     }
 } 
 

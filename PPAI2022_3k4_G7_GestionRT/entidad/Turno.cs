@@ -14,13 +14,13 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         private DateTime fechaHoraFin;
         private List<CambioEstadoTurno> cambioEstadoTurno = new List<CambioEstadoTurno>();
 
-        public Turno( DayOfWeek diaSemana, DateTime fechaHoraInicio, DateTime fechaHoraFin,CambioEstadoTurno cambioEstadoTurno)
+        public Turno(DateTime fechaGeneracion, DayOfWeek diaSemana, DateTime fechaHoraInicio, DateTime fechaHoraFin, List<CambioEstadoTurno> cambioEstadoTurno)
         {
-            this.fechaGeneracion = new DateTime();
+            this.fechaGeneracion = fechaGeneracion;
             this.diaSemana = diaSemana;
             this.fechaHoraInicio = fechaHoraInicio;
             this.fechaHoraFin = fechaHoraFin;
-            this.cambioEstadoTurno.Add(cambioEstadoTurno);
+            this.cambioEstadoTurno = cambioEstadoTurno;
         }
 
         public DateTime FechaGeneracion { get => fechaGeneracion; }
@@ -40,12 +40,14 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             return null;
         }
 
-        public void reservarTurno (Estado estadoReservado)
+        public void reservarTurno(Estado estadoReservado)
         {
-            CambioEstadoTurno cambioActual = obtenerCambioEstadoTurnoActual();
-            cambioActual.FechaFin = new DateTime();
-            CambioEstadoTurno nuevoCambioEstado = new CambioEstadoTurno(estadoReservado, new DateTime());
-        }   // Asociar cientifico q reserva, con el turno ?
+            cambioEstadoTurno.Last().FechaFin = DateTime.Now;
+
+            var nuevoCambioEstado = new CambioEstadoTurno(this.fechaHoraInicio, estadoReservado);
+
+            cambioEstadoTurno.Add(nuevoCambioEstado);
+        }
 
         public bool esPosteriorFechaHoraActual() { return DateTime.Compare(this.fechaHoraInicio, new DateTime()) > 0; }
         // cual de los dos metodos esta en el diag?

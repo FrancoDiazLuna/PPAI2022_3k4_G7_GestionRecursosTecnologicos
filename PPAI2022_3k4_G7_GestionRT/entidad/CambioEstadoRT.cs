@@ -47,6 +47,13 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             return true;
              */
         }
+
+        public bool esReservable()
+        {
+            return this.estadoRT.esReservable();
+        }
+
+        public string getNombreEstado() { return estadoRT.getNombre(); }
     }
 }
 
