@@ -29,7 +29,7 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         public DateTime FechaFin { get => fechaFin; set => fechaFin = value; }
         public Estado EstadoTurno { get => estadoTurno; set => estadoTurno = value; }
 
-        public bool esActual() {
+        public bool esEstadoActual() {
             // Si se instancia sin generar fechaHoraHasta toma por default minValue
             if (fechaFin.ToShortDateString() == "1/1/0001")
                 return true;

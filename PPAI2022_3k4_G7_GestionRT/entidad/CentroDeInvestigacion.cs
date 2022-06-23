@@ -27,8 +27,7 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         private AsignacionRespTecnologico responsableTecnologico;
         private List<AsignacionCientifico> cientificos;
 
-      
-
+        
         public CentroDeInvestigacion(string nombre, string sigla, string direccion, int tiempoAntelacionReserva, List<RecursoTecnologico> recursosTecnologicos, List<AsignacionCientifico> cientificos)
         {
             this.nombre = nombre;
@@ -71,7 +70,35 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             recursosTecnologicos = recursos;
         }
 
-      
+        public List<RecursoTecnologico> getRecursosTecnologicos()
+        {
+            return recursosTecnologicos; 
+        }
+        
+        public bool buscarCientifico(Usuario deLaSesion)
+        {
+             misCientificosActivos(deLaSesion);
+
+            return true;
+        }
+
+        public bool misCientificosActivos(Usuario deLaSesion)
+        {
+            bool validar = false;// validar nombre y si es lo que retorna
+            foreach(AsignacionCientifico asignacion in cientificos)
+            {
+                if(asignacion.EsCientificoActivo())
+                {
+                    if (asignacion.compararUsuario(deLaSesion))
+                    {
+                        validar = asignacion.compararUsuario(deLaSesion);
+                        break;
+                    }
+                }
+            }
+            return validar;
+        }
+
     }
 } 
 

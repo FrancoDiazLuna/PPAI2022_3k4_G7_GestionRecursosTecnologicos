@@ -116,9 +116,9 @@ namespace PPAI2022_3k4_G7_GestionRT
         public static readonly AsignacionCientifico acci4 = new AsignacionCientifico(fechaInicio, fechaFin, cientifico4);
 
         //Centros de Investigacion en el sistema
-        public static CentroDeInvestigacion centro1 = new CentroDeInvestigacion("Centro FCEFyN", "FCEFyN", "Chile 215", 7, loadRecursosTecnologicos(), crearAsignacionCientifico());
-        public static CentroDeInvestigacion centro2 = new CentroDeInvestigacion("Centro F.C.M.", "Facultad de Ciencias Médicas", " Blvd. de la Reforma 197", 3, loadRecursosTecnologicos(), crearAsignacionCientifico());
-        public static CentroDeInvestigacion centro3 = new CentroDeInvestigacion("Centro F.O.", "Facultad de Odontología (F.O.)", "Haya de la Torre S/N, X5000", 5, loadRecursosTecnologicos(), crearAsignacionCientifico());
+        public static CentroDeInvestigacion centro1 = new CentroDeInvestigacion("Centro FCEFyN", "FCEFyN", "Chile 215", 7, loadRecursosTecnologicosC1(), crearAsignacionCientifico());
+        public static CentroDeInvestigacion centro2 = new CentroDeInvestigacion("Centro F.C.M.", "Facultad de Ciencias Médicas", " Blvd. de la Reforma 197", 3, loadRecursosTecnologicosC2(), crearAsignacionCientifico());
+        public static CentroDeInvestigacion centro3 = new CentroDeInvestigacion("Centro F.O.", "Facultad de Odontología (F.O.)", "Haya de la Torre S/N, X5000", 5, loadRecursosTecnologicosC3(), crearAsignacionCientifico());
 
         //Recursos tecnologicos en el sistema
         public static RecursoTecnologico rt1 = new RecursoTecnologico(1, modelo4, tipoRecurso1, crearCambioEstadoRTsDisponible(), crearListaTurnos());
@@ -357,6 +357,20 @@ namespace PPAI2022_3k4_G7_GestionRT
             listaMarcas.Add(marca3);
 
             return listaMarcas;
+        }
+
+        public static RecursoTecnologico getRecursoPorNroInventario(int nroInventario, string nombreCI)
+        {
+            RecursoTecnologico rt= null;
+            List<CentroDeInvestigacion> centrosInvestigacion = listarCentros();
+            foreach( CentroDeInvestigacion ci in centrosInvestigacion ){
+                if(nombreCI== ci.getNombreCI())
+                {
+                    rt = ci.getRecursosTecnologicos().Find(x => x.getNroInventario() == nroInventario);
+                    break;
+                }
+            }
+            return rt;
         }
     }
 }

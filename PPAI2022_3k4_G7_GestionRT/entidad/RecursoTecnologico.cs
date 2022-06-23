@@ -61,14 +61,9 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             string centroDeInvestigacion = "";
             if( cambioEstadoActual.esReservable() && cambioEstadoActual!= null)
             {
-                foreach (CentroDeInvestigacion centro in centrosInvestigacion)
+                if (buscarCIdelRT(centrosInvestigacion) != null)
                 {
-                    if (centro.esTuRecursoTecnologico(this))
-                    {
-                        centroDeInvestigacion = centro.getNombreCI();
-                        break;
-                    }
-
+                    centroDeInvestigacion = buscarCIdelRT(centrosInvestigacion).getNombreCI();
                 }
                 int nroInv = this.getNroInventario();
                 List<String> modeloYMarca = mostrarMarcaYModelo(marcas);
@@ -80,6 +75,22 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
 
         public int getNroInventario() { return nroInventario; }
 
+        //se separa en un método aparte para reutilizarlo en buscarCientifico
+        public CentroDeInvestigacion buscarCIdelRT(List<CentroDeInvestigacion> ci)
+        {
+            CentroDeInvestigacion centroInvestigacion = null;
+            foreach (CentroDeInvestigacion centro in ci)
+            {
+                if (centro.esTuRecursoTecnologico(this))
+                {
+                    centroInvestigacion = centro;
+                    break;
+                }
+
+            }
+            return centroInvestigacion;
+        }
+
      
         public List<String> mostrarMarcaYModelo(List<Marca> marcas)
         {
@@ -89,6 +100,22 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             return modeloYMarca;
         }
 
-     
+        public bool buscarCientifico(List<CentroDeInvestigacion> ci, Usuario deLaSesion)
+        { 
+            return buscarCIdelRT(ci).buscarCientifico(deLaSesion);
+        }
+
+        public List<Turno> getTurnosPosterioresFechaHoraActual(DateTime fechaActual)
+        {
+            List<Turno> turnosPosterioresFechaHoraActual = new List<Turno>();
+            foreach(Turno turno in listaTurno)
+            {
+                if (turno.esPosteriorFechaHoraActual())
+                {
+                    turno.
+                }
+            }
+            return turnosPosterioresFechaHoraActual;
+        }
     }
 }
