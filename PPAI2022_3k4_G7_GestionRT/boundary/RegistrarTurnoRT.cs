@@ -20,6 +20,13 @@ namespace PPAI2022_3k4_G7_GestionRT.boundary
         public ucRegistrarTurnoRT()
         {
             InitializeComponent();
+            habilitarPantalla();
+        }
+
+        private void habilitarPantalla() 
+        {
+            gestor = new GestorDeTurnosDeRecursoTecnologico(this);
+            gestor.opcionReservarTurnoRT();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -30,17 +37,34 @@ namespace PPAI2022_3k4_G7_GestionRT.boundary
             }
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        internal void mostrarTiposDeRT(List<string> lista)
         {
+            cmbTipoRecurso.Items.AddRange(lista.ToArray());
+        }
+
+        internal void solicitarSeleccionDeTiposDeRT()
+        {
+            //?
+        }
+
+        private void cmbTipoRecurso_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            grbSeleccionDeRecurso.Enabled = true;
+            dgvRecursosTecnologicos.Enabled = true;
+            btnSeleccionarRT.Enabled = true;
             gestor.tomarSeleccionTipoRecursoTecnologico(cmbTipoRecurso.SelectedItem.ToString());
         }
 
         private void btnReservar_Click(object sender, EventArgs e)
         {
 
+            gestor.finCU();
         }
 
-
-
+        private void btnSeleccionarRT_Click(object sender, EventArgs e)
+        {
+            grbNuevoTurno.Enabled = true;
+            //logica para cargar txts
+        }
     }
 }

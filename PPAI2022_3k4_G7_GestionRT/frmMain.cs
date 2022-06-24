@@ -1,4 +1,6 @@
 ﻿using PPAI2022_3k4_G7_GestionRT.boundary;
+using PPAI2022_3k4_G7_GestionRT.control;
+using PPAI2022_3k4_G7_GestionRT.entidad;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,12 +18,12 @@ namespace PPAI2022_3k4_G7_GestionRT
         public frmMain()
         {
             InitializeComponent();
+            Sesion sesion = CargaDeDatos.loadSesion();
         }
 
         private void reservaTurnoDeRecursoTecnológico_Click(object sender, EventArgs e)
         {
             ucRegistrarTurnoRT uc = new ucRegistrarTurnoRT();
-            GestorDeTurnosDeRecursoTecnologico gestor = new GestorDeTurnosDeRecursoTecnologico();
             showControl(uc);
 
         }

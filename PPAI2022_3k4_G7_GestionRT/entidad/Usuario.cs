@@ -13,6 +13,8 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         private bool habilitado;
         PersonalCientifico cientifico;
 
+        public PersonalCientifico Cientifico { get => cientifico; set => cientifico = value; }
+
         public Usuario(string nombre, string clave, bool habilitado, PersonalCientifico cientifico)
         {
             this.nombre = nombre;

@@ -35,7 +35,7 @@
   <ItemGroup>
     <Reference Include="MonthCalendar, Version=1.8.2.0, Culture=neutral, PublicKeyToken=9d22151b1b463438, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\MonthCalendar.dll</HintPath>
+      <HintPath>..\..\..\Downloads\MonthCalendar_demo_vs2005\MonthCalendar.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -58,6 +58,7 @@
       <DependentUpon>RegistrarTurnoRT.cs</DependentUpon>
     </Compile>
     <Compile Include="CargaDeDatos.cs" />
+    <Compile Include="control\GestorDeCorreoElectronico.cs" />
     <Compile Include="control\GestorDeTurnosDeRecursoTecnologico.cs" />
     <Compile Include="entidad\AsignacionCientifico.cs" />
     <Compile Include="entidad\AsignacionDirector.cs" />
@@ -73,11 +74,12 @@
     <Compile Include="entidad\Modelo.cs" />
     <Compile Include="entidad\PersonalCientifico.cs" />
     <Compile Include="entidad\RecursoTecnologico.cs" />
-    <Compile Include="entidad\RecursoTecnologicoMuestra.cs" />
+    <Compile Include="entidad\soporte\InterfazDeCorreoElectronico.cs" />
+    <Compile Include="entidad\soporte\RecursoTecnologicoMuestra.cs" />
     <Compile Include="entidad\Sesion.cs" />
     <Compile Include="entidad\TipoRecursoTecnologico.cs" />
     <Compile Include="entidad\Turno.cs" />
-    <Compile Include="entidad\TurnoMuestra.cs" />
+    <Compile Include="entidad\soporte\TurnoMuestra.cs" />
     <Compile Include="entidad\Usuario.cs" />
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>

@@ -1,33 +1,58 @@
-﻿using PPAI2022_3k4_G7_GestionRT.entidad;
+﻿using PPAI2022_3k4_G7_GestionRT.boundary;
+using PPAI2022_3k4_G7_GestionRT.entidad;
+using PPAI2022_3k4_G7_GestionRT.entidad.soporte;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace PPAI2022_3k4_G7_GestionRT.control
 {
     public class GestorDeTurnosDeRecursoTecnologico
     {
-        private List<RecursoTecnologico> listaRecursosTecnologicosValidos;
+        private List<TipoRecursoTecnologico> listaTipoRTDisponibles;
         private List<RecursoTecnologico> listaRecursoTecnologicosDisponibles;
+        private List<Estado> listaEstados;
+        private List<RecursoTecnologico> listaRecursosTecnologicosValidos;
         private List<RecursoTecnologicoMuestra> listaRecursosMuestra;
         private Sesion activa= CargaDeDatos.loadSesion();
         private Usuario deLaSesion;
         private RecursoTecnologico seleccionado;
         List<CentroDeInvestigacion> centrosInvestigacion = CargaDeDatos.listarCentros();
-        private Turno turnoSeleccion;
-        DateTime fechaActual;
-        
 
-        // metodo 1
-        public List<string> buscarTiposDeRT()
+        internal void opcionReservarTurnoRT()
+        {
+            ucRegistrarTurnoRT.mostrarTiposDeRT(buscarTiposDeRT());
+            ucRegistrarTurnoRT.solicitarSeleccionDeTiposDeRT();
+        }
+
+        private Turno turnoSeleccion;
+        private DateTime fechaActual;
+        private InterfazDeCorreoElectronico interfazDeCorreoElectronico;
+        private ucRegistrarTurnoRT ucRegistrarTurnoRT;
+
+        public GestorDeTurnosDeRecursoTecnologico(ucRegistrarTurnoRT ucRegistrarTurnoRT)
+        {
+            this.ucRegistrarTurnoRT = ucRegistrarTurnoRT;
+            listaTipoRTDisponibles = CargaDeDatos.loadTiposRecursoTecnologico();
+            listaRecursoTecnologicosDisponibles = CargaDeDatos.loadRecursosTecnologicos();
+            listaEstados = CargaDeDatos.loadEstados();
+        }
+
+        public void tomarSeleccionTipoRecursoTecnologico(string tipoRecursoSeleccionado)
+        {
+            tipoDeRTSeleccionado(tipoRecursoSeleccionado);
+        }
+
+        public List<String> buscarTiposDeRT()
         {
             List<String> nombresTiposDeRT = new List<String>();
-            List<entidad.TipoRecursoTecnologico> tiposRT = CargaDeDatos.loadTiposRecursoTecnologico();
+            List<TipoRecursoTecnologico> tiposRT = CargaDeDatos.loadTiposRecursoTecnologico();
             if (tiposRT.Count != 0)
             {
-                foreach(entidad.TipoRecursoTecnologico tipoRT in tiposRT )
+                foreach(TipoRecursoTecnologico tipoRT in tiposRT )
                 {
                     nombresTiposDeRT.Add(tipoRT.Nombre);
                 }
@@ -42,10 +67,6 @@ namespace PPAI2022_3k4_G7_GestionRT.control
 
         public void buscarRT(string tipoRecursoSeleccionado)
         {
-            /*ME PARECE QUE CON EL CAMBIO QUE SE HIZO EN EL CARGA DE DATOS PASANDOLE AL CI EL LOADrECURSO DE ESE CENTRO ES SUFICIENTE
-            centrosInvestigacion[0].setRecursosTecnologicos(CargaDeDatos.loadRecursosTecnologicosC1());
-            centrosInvestigacion[1].setRecursosTecnologicos(CargaDeDatos.loadRecursosTecnologicosC2());
-            centrosInvestigacion[2].setRecursosTecnologicos(CargaDeDatos.loadRecursosTecnologicosC3());*/
             listaRecursosTecnologicosValidos = new List<RecursoTecnologico>();
 
             foreach (RecursoTecnologico recurso in listaRecursoTecnologicosDisponibles)
@@ -124,8 +145,8 @@ namespace PPAI2022_3k4_G7_GestionRT.control
         {
             Estado estadoReservado = buscarEstadoReservado();
             seleccionado.actualizarEstadoTurno(turnoSeleccion, estadoReservado, fechaActual);
-
         }
+
         public Estado buscarEstadoReservado()
         {
             List<Estado> listaEstados = CargaDeDatos.loadEstados();
@@ -144,10 +165,18 @@ namespace PPAI2022_3k4_G7_GestionRT.control
         {
             fechaActual = DateTime.Now;           
         }
-        
+
         public void generarNotificacionReservaDeTurno()
         {
-            
+            interfazDeCorreoElectronico = new InterfazDeCorreoElectronico();
+            var mensaje = new StringBuilder("Se registro el turno del Recurso");
+            string email = deLaSesion.Cientifico.CorreoPersonal;
+            interfazDeCorreoElectronico.generarNotififacionReservaDeTurno(mensaje, email, seleccionado.getNroInventario().ToString(), turnoSeleccion.FechaHoraInicio.ToString());
+        }
+
+        public void finCU()
+        {
+            MessageBox.Show("Reserva realizada con éxito", "Importante", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
            
     }
