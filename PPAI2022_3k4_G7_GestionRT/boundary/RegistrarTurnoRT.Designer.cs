@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ucRegistrarTurnoRT));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblRegistrarTurnoRT = new System.Windows.Forms.Label();
@@ -259,20 +259,20 @@
             this.dgvTurnos.AllowUserToAddRows = false;
             this.dgvTurnos.AllowUserToDeleteRows = false;
             this.dgvTurnos.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvTurnos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvTurnos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTurnos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn6,
             this.dataGridViewTextBoxColumn7,
             this.dataGridViewTextBoxColumn8});
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvTurnos.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgvTurnos.Location = new System.Drawing.Point(566, 48);
             this.dgvTurnos.Name = "dgvTurnos";
             this.dgvTurnos.ReadOnly = true;
@@ -280,6 +280,7 @@
             this.dgvTurnos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTurnos.Size = new System.Drawing.Size(571, 529);
             this.dgvTurnos.TabIndex = 15;
+            this.dgvTurnos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTurnos_CellClick);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -374,6 +375,8 @@
             // chkEmail
             // 
             this.chkEmail.AutoSize = true;
+            this.chkEmail.Checked = true;
+            this.chkEmail.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkEmail.Location = new System.Drawing.Point(4, 13);
             this.chkEmail.Name = "chkEmail";
@@ -540,7 +543,7 @@
             this.btnReservar.TabIndex = 1;
             this.btnReservar.Text = "Reservar";
             this.btnReservar.UseVisualStyleBackColor = true;
-            this.btnReservar.Click += new System.EventHandler(this.btnReservar_Click);
+            this.btnReservar.Click += new System.EventHandler(this.tomarConfirmacionDeReservaDeTurno);
             // 
             // calendario
             // 
@@ -548,23 +551,22 @@
             this.calendario.ActiveMonth.Year = 2022;
             this.calendario.Culture = new System.Globalization.CultureInfo("es-ES");
             this.calendario.Footer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.calendario.Header.BackColor1 = System.Drawing.SystemColors.ActiveCaption;
             this.calendario.Header.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.calendario.Header.TextColor = System.Drawing.Color.White;
             this.calendario.ImageList = null;
-            this.calendario.Location = new System.Drawing.Point(61, 299);
-            this.calendario.MaxDate = new System.DateTime(2032, 6, 24, 2, 36, 25, 618);
-            this.calendario.MinDate = new System.DateTime(2012, 6, 24, 2, 36, 25, 618);
+            this.calendario.Location = new System.Drawing.Point(61, 308);
+            this.calendario.MaxDate = new System.DateTime(2032, 6, 24, 15, 38, 44, 472);
+            this.calendario.MinDate = new System.DateTime(2012, 6, 24, 15, 38, 44, 472);
             this.calendario.Month.BackgroundImage = null;
             this.calendario.Month.DateFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.calendario.Month.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.calendario.Name = "calendario";
             this.calendario.ShowFooter = false;
-            this.calendario.Size = new System.Drawing.Size(432, 207);
+            this.calendario.Size = new System.Drawing.Size(432, 202);
             this.calendario.TabIndex = 18;
             this.calendario.Weekdays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.calendario.Weeknumbers.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.calendario.DayClick += new Pabo.Calendar.DayClickEventHandler(this.calendario_DayClick);
+            this.calendario.DayClick += new Pabo.Calendar.DayClickEventHandler(this.calendar_DayClick);
             // 
             // ucRegistrarTurnoRT
             // 
@@ -634,7 +636,6 @@
         private System.Windows.Forms.FlowLayoutPanel panelWSP;
         private System.Windows.Forms.FlowLayoutPanel panelEmail;
         private System.Windows.Forms.Panel panel1;
-        private Pabo.Calendar.MonthCalendar monthCalendar1;
         private Pabo.Calendar.MonthCalendar calendario;
     }
 }

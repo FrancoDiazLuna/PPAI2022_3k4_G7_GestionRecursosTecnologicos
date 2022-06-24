@@ -55,15 +55,58 @@ namespace PPAI2022_3k4_G7_GestionRT.boundary
             gestor.tipoDeRTSeleccionado(cmbTipoRecurso.SelectedItem.ToString());
         }
 
-        private void btnReservar_Click(object sender, EventArgs e)
+        private void tomarConfirmacionDeReservaDeTurno(object sender, EventArgs e)
         {
+            if (dgvTurnos.CurrentRow == null || dgvTurnos.CurrentRow.Cells[3].Value.ToString() == "Reservado" || (chkEmail.Checked == false && chkWhatsapp.Checked == false || (chkEmail.Checked == true && chkWhatsapp.Checked == true) == true) == true)
+            {
+                if (dgvTurnos.CurrentRow == null)
+                {
+                    MessageBox.Show("Seleccione un turno", "Reserva de truno");
+                }
+                else if (dgvTurnos.CurrentRow.Cells[3].Value.ToString() == "Reservado")
+                {
+                    MessageBox.Show("Seleccione un turno Disponible", "Reserva de truno");
+                }
+                else if ((chkEmail.Checked == false && chkWhatsapp.Checked == false) == true)
+                {
+                    MessageBox.Show("Seleccione una forma de Notificacion", "Reserva de truno");
+                }
+                else if ((chkEmail.Checked == true && chkWhatsapp.Checked == true) == true)
+                {
+                    MessageBox.Show("Seleccione UNA SOLA forma de Notificacion", "Reserva de truno");
+                }
+            }
+            else
+            {
+                DialogResult resultado = MessageBox.Show("¿Está seguro que desea reservar este turno?", "Reserva de truno", MessageBoxButtons.YesNo);
+                if (resultado == DialogResult.Yes)
+                {
+                    gestor.confirmarReservaDeTurno();
+                    StringBuilder MensajeBuilder = new StringBuilder();
+                    string Message = "Su turno ha sido correctamente reservado";
+                    MensajeBuilder.Append(Message);
 
-            gestor.finCU();
+                    if (chkEmail.Checked)
+                    {
+                        MessageBox.Show("Enviando notificación de reserva por Email");
+                        gestor.generarNotificacionReservaDeTurno();
+                        MessageBox.Show("Email enviado correctamente.");
+                    }
+
+                    if (chkWhatsapp.Checked)
+                        MessageBox.Show("Mensaje enviado correctamente.");
+
+                    MessageBox.Show("Reserva efectuada exitosamente!", "Notificacion enviada.", MessageBoxButtons.OK);
+
+                    gestor.finCU();
+                }
+            }
         }
 
         private void tomarSeleccionDeRT(object sender, EventArgs e)
         {
             grbNuevoTurno.Enabled = true;
+            btnReservar.Enabled = true;
             if (dgvRecursosTecnologicos.CurrentRow != null)
             {
                 string centroDeInv = (string)dgvRecursosTecnologicos.CurrentRow.Cells[1].Value;
@@ -130,14 +173,79 @@ namespace PPAI2022_3k4_G7_GestionRT.boundary
             }
         }
 
-        private void calendario_DayClick(object sender, DayClickEventArgs e)
+        private void colorearTurnos(int fila, string estado)
+        {
+            switch (estado)
+            {
+                case "Disponible":
+                    dgvTurnos.Rows[fila].Cells[0].Style.BackColor = Color.LightBlue;
+                    dgvTurnos.Rows[fila].Cells[1].Style.BackColor = Color.LightBlue;
+                    dgvTurnos.Rows[fila].Cells[2].Style.BackColor = Color.LightBlue;
+                    dgvTurnos.Rows[fila].Cells[3].Style.BackColor = Color.LightBlue;
+                    break;
+                case "Pendiente":
+                    dgvTurnos.Rows[fila].Cells[0].Style.BackColor = Color.LightSeaGreen;
+                    dgvTurnos.Rows[fila].Cells[1].Style.BackColor = Color.LightSeaGreen;
+                    dgvTurnos.Rows[fila].Cells[2].Style.BackColor = Color.LightSeaGreen;
+                    dgvTurnos.Rows[fila].Cells[3].Style.BackColor = Color.LightSeaGreen;
+                    break;
+                case "Reservado":
+                    dgvTurnos.Rows[fila].Cells[0].Style.BackColor = Color.LightSalmon;
+                    dgvTurnos.Rows[fila].Cells[1].Style.BackColor = Color.LightSalmon;
+                    dgvTurnos.Rows[fila].Cells[2].Style.BackColor = Color.LightSalmon;
+                    dgvTurnos.Rows[fila].Cells[3].Style.BackColor = Color.LightSalmon;
+                    break;
+            }
+        }
+
+        internal void mostrarYSolicitarSeleccionTurnos(Dictionary<string, bool> disponibilidadAMostrar, Action<RecursoTecnologicoMuestra> recursoTecnologicoSeleccionado)
+        {
+            foreach (var dia in disponibilidadAMostrar)
+            {
+                DateItem item = new DateItem();
+                if (dia.Value)
+                {
+                    item.Date = DateTime.Parse(dia.Key);
+                    item.BackColor1 = Color.Green;
+                    calendario.AddDateInfo(item);
+                }
+                else
+                {
+                    item.Date = DateTime.Parse(dia.Key);
+                    item.BackColor1 = Color.Red;
+                    calendario.AddDateInfo(item);
+                }
+            }
+        }
+
+        private void calendar_DayClick(object sender, DayClickEventArgs e)
         {
             dgvTurnos.Rows.Clear();
             if (calendario.SelectedDates.Count > 0)
             {
                 DateTime date = calendario.SelectedDates[0].Date;
-                gestor.tomarSeleccionDia(date);
+                gestor.tomarSleccionDia(date);
             }
+        }
+
+        internal void mostrarDiaSeleccionado(List<TurnoMuestra> turnos)
+        {
+            foreach (var turno in turnos)
+            {
+                dgvTurnos.Rows.Add(turno.FechaHoraInicio.ToShortDateString(), turno.FechaHoraInicio.ToShortTimeString(), turno.FechaHoraFin.ToShortTimeString(), turno.Estado);
+            }
+            for (int i = 0; i < dgvTurnos.Rows.Count; i++)
+            {
+                colorearTurnos(i, turnos[i].Estado);
+            }
+            dgvTurnos.ClearSelection();
+        }
+        //este metodo es el tomar seleccionTurno
+        private void dgvTurnos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //este llama a turnoseleccionado
+            //gestor.turnoSeleccionado(dgvTurnos.CurrentRow);
+            gestor.tomarSeleccionTurno(dgvTurnos.CurrentRow);
         }
     }
 }

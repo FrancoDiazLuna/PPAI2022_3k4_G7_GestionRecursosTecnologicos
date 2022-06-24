@@ -74,7 +74,7 @@
     <Compile Include="entidad\Modelo.cs" />
     <Compile Include="entidad\PersonalCientifico.cs" />
     <Compile Include="entidad\RecursoTecnologico.cs" />
-    <Compile Include="entidad\soporte\InterfazDeCorreoElectronico.cs" />
+    <Compile Include="boundary\InterfazDeCorreoElectronico.cs" />
     <Compile Include="entidad\soporte\RecursoTecnologicoMuestra.cs" />
     <Compile Include="entidad\Sesion.cs" />
     <Compile Include="entidad\TipoRecursoTecnologico.cs" />

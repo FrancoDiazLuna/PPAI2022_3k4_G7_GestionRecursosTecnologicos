@@ -126,9 +126,7 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
                     t.reservarTurno(estadoReservado, fechaHoraActual);
                     break;
                 }
-            }
-           
-            
+            }            
             // se necesita el objeto turnoSeleccionado
             // se aplica el metodo --->  turnoSeleccionado.reservarTurno( estadoReservado, fechaHoraActual )
         }

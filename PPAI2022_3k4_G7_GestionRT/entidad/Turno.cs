@@ -12,7 +12,7 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         private DayOfWeek diaSemana;
         private DateTime fechaHoraInicio;
         private DateTime fechaHoraFin;
-        private List<CambioEstadoTurno> cambioEstadoTurno = new List<CambioEstadoTurno>();
+        private List<CambioEstadoTurno> cambioEstadoTurno;
        
 
         public Turno(DateTime fechaGeneracion, DayOfWeek diaSemana, DateTime fechaHoraInicio, DateTime fechaHoraFin, List<CambioEstadoTurno> cambioEstadoTurno)
@@ -75,6 +75,9 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             return this.fechaHoraInicio >= timeInicio;
         }
 
-
+        internal TurnoMuestra mostrarTurno()
+        {
+            return new TurnoMuestra(fechaHoraInicio, fechaHoraFin, cambioEstadoTurno.Last<CambioEstadoTurno>().EstadoTurno.getNombre());
+        }
     }
 }

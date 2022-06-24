@@ -22,9 +22,17 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             this.estado = estado;
         }
 
+        public TurnoMuestra(DateTime fechaHoraInicio, DateTime fechaHoraFin, string estado)
+        {
+            this.fechaHoraInicio = fechaHoraInicio;
+            this.fechaHoraFin = fechaHoraFin;
+            this.estado = estado;
+        }
+
         public DayOfWeek DiaSemana { get => diaSemana; set => diaSemana = value; }
         public DateTime FechaHoraInicio { get => fechaHoraInicio; set => fechaHoraInicio = value; }
         public string Estado { get => estado; set => estado = value; }
+        public DateTime FechaHoraFin { get => fechaHoraFin; set => fechaHoraFin = value; }
 
         public void setColor(int nroColor)
         {

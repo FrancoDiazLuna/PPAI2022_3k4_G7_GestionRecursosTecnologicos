@@ -1,11 +1,9 @@
 ﻿using PPAI2022_3k4_G7_GestionRT.boundary;
 using PPAI2022_3k4_G7_GestionRT.entidad;
-using PPAI2022_3k4_G7_GestionRT.entidad.soporte;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PPAI2022_3k4_G7_GestionRT.control
@@ -20,6 +18,10 @@ namespace PPAI2022_3k4_G7_GestionRT.control
         private Usuario deLaSesion;
         private RecursoTecnologico seleccionado;
         List<CentroDeInvestigacion> centrosInvestigacion = CargaDeDatos.listarCentros();
+        private List<Turno> listaTurnosRTSeleccionado;
+        private Dictionary<string, List<TurnoMuestra>> turnosOrdenados;
+        private Turno turnoElegido;
+        private List<TurnoMuestra> listaTurnos;
 
         internal void opcionReservarTurnoRT()
         {
@@ -107,38 +109,14 @@ namespace PPAI2022_3k4_G7_GestionRT.control
             obtenerUsuarioLogueado();
             if (verificarCIDelUsuario())
             {
-                getFechaHoraActual();
-                buscarTurnosDelRTSeleccionado(seleccionado);    
+                obtenerTurnosReservables(buscarTurnosDelRTSeleccionado(seleccionado));
             }
         }
 
         private List<TurnoMuestra> buscarTurnosDelRTSeleccionado(RecursoTecnologico seleccionado)
         {
-            List<TurnoMuestra> listaTurnos = seleccionado.getTurnosPosterioresFechaHoraActual(fechaActual);
-            clasificarPorColores(listaTurnos);
+            listaTurnos = seleccionado.getTurnosPosterioresFechaHoraActual(fechaActual);
             return listaTurnos;
-        }
-
-        private void clasificarPorColores(List<TurnoMuestra> listaTurnos)
-        {
-            foreach (TurnoMuestra turno in listaTurnos)
-            {
-                switch (turno.Estado)
-                {
-                    case "Disponible":
-                        turno.setColor(1); //Azul
-                        break;
-                    case "Con reserva pendiente de confirmacion":
-                        turno.setColor(2);//Gris
-                        break;
-                    case "Reservado"://Rojo
-                        turno.setColor(3);
-                        break;
-                    default:
-                        turno.setColor(0);//No color -> Blanco
-                        break;
-                }
-            }
         }
 
         public void obtenerUsuarioLogueado()
@@ -149,16 +127,39 @@ namespace PPAI2022_3k4_G7_GestionRT.control
         public bool verificarCIDelUsuario() {            
             return seleccionado.buscarCientifico(centrosInvestigacion, deLaSesion);
         }
+
+
+        
+        public void turnoSeleccionado(DataGridViewRow currentRow)
+        {
+
+            turnoSeleccion = tomarSeleccionTurno(DataGridViewRow currentRow);
+           // turnoSeleccion = CargaDeDatos.getTurno(turnoMuestra.FechaHoraInicio, turnoMuestra.DiaSemana);
+        }
+        /*
         public void turnoSeleccionado(TurnoMuestra turnoMuestra)
         {
             turnoSeleccion = CargaDeDatos.getTurno(turnoMuestra.FechaHoraInicio, turnoMuestra.DiaSemana);
-        }
+        }*/
 
         public void confirmarReservaDeTurno()
         {
             registrarConfirmacionDeReservaDeTurno();
         }
 
+        //public void registrarConfirmacionDeReservaDeTurno()
+        //{
+        //    foreach (var estado in listaEstados)
+        //    {
+        //        if (estado.esAmbitoTurno())
+        //        {
+        //            if (estado.esReservado())
+        //            {
+        //                seleccionado.reservarTurno(turnoSeleccionado, estado, cientificoLogueado);
+        //            }
+        //        }
+        //    }
+        //}
         public void registrarConfirmacionDeReservaDeTurno()
         {
             Estado estadoReservado = buscarEstadoReservado();
@@ -184,6 +185,68 @@ namespace PPAI2022_3k4_G7_GestionRT.control
             fechaActual = DateTime.Now;           
         }
 
+        public void obtenerTurnosReservables(List<TurnoMuestra> turnoMuestras)
+        {
+            getFechaHoraActual();
+
+            turnosOrdenados = ordenarYAgruparTurnos(turnoMuestras);
+
+            Dictionary<string, bool> disponibilidadAMostrar = determinarDisponibilidadTurnos();
+
+            ucRegistrarTurnoRT.mostrarYSolicitarSeleccionTurnos(disponibilidadAMostrar, recursoTecnologicoSeleccionado);
+        }
+
+        public Dictionary<string, bool> determinarDisponibilidadTurnos()
+        {
+            Dictionary<string, bool> disponibilidad = new Dictionary<string, bool>();
+
+            foreach (var entry in turnosOrdenados.Keys)
+            {
+                disponibilidad.Add(entry, false);
+                foreach (var turno in turnosOrdenados[entry])
+                {
+                    if (turno.Estado == "Disponible")
+                    {
+                        disponibilidad[entry] = true;
+                        break;
+                    }
+                }
+            }
+            return disponibilidad;
+        }
+
+        public Dictionary<string, List<TurnoMuestra>> ordenarYAgruparTurnos(List<TurnoMuestra> turnoMuestras)
+        {
+            Dictionary<string, List<TurnoMuestra>> turnosOrdenados = new Dictionary<string, List<TurnoMuestra>>();
+            List<TurnoMuestra> turnos = new List<TurnoMuestra>();
+
+            foreach (var turno in turnoMuestras)
+            {
+
+                if (turnosOrdenados.ContainsKey(turno.FechaHoraInicio.ToShortDateString()))
+                {
+                    turnosOrdenados[turno.FechaHoraInicio.ToShortDateString()].Add(turno);
+                }
+                else
+                {
+                    List<TurnoMuestra> list = new List<TurnoMuestra>();
+                    list.Add(turno);
+                    turnosOrdenados.Add(turno.FechaHoraInicio.ToShortDateString(), list);
+                }
+            }
+
+            return turnosOrdenados;
+        }
+
+        internal void tomarSleccionDia(DateTime date)
+        {
+            string dateFormatted = date.ToShortDateString();
+            if (turnosOrdenados.ContainsKey(dateFormatted))
+            {
+                ucRegistrarTurnoRT.mostrarDiaSeleccionado(turnosOrdenados[dateFormatted]);
+            }
+        }
+
         public void generarNotificacionReservaDeTurno()
         {
             interfazDeCorreoElectronico = new InterfazDeCorreoElectronico();
@@ -192,16 +255,34 @@ namespace PPAI2022_3k4_G7_GestionRT.control
             interfazDeCorreoElectronico.generarNotififacionReservaDeTurno(mensaje, email, seleccionado.getNroInventario().ToString(), turnoSeleccion.FechaHoraInicio.ToString());
         }
 
+        internal void tomarSeleccionTurno(DataGridViewRow currentRow)
+        {
+            foreach (var turnoDisponible in listaTurnos)
+            {
+                string fecha = currentRow.Cells[0].Value.ToString();
+                string horaInicio = currentRow.Cells[1].Value.ToString();
+                string horaFin = currentRow.Cells[2].Value.ToString();
+                string estado = currentRow.Cells[3].Value.ToString();
+
+                Turno t = CargaDeDatos.getTurno(turnoDisponible.FechaHoraInicio, turnoDisponible.DiaSemana);
+
+                TurnoMuestra comparable = t.mostrarTurno();
+
+                string fechaComparable = comparable.FechaHoraInicio.ToShortDateString();
+                string horaInicioComparable = comparable.FechaHoraInicio.ToShortTimeString();
+                string horaFinComparable = comparable.FechaHoraFin.ToShortTimeString();
+                string estadoComparable = comparable.Estado;
+
+                if (fecha == fechaComparable && horaInicio == horaInicioComparable && horaFin == horaFinComparable && estado == estadoComparable)
+                {
+                    turnoElegido = t;
+                }
+            }
+        }
+
         public void finCU()
         {
             MessageBox.Show("Reserva realizada con éxito", "Importante", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        internal void tomarSeleccionDia(DateTime date)
-        {
-            string datos = date.ToShortDateString();
-            //
-
         }
 
     }

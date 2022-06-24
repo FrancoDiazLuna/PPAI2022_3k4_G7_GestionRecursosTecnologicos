@@ -25,13 +25,25 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             this.estadoTurno = estadoTurno;
         }
 
-        public DateTime FechaInicio { get => fechaInicio; set => fechaInicio = value; }
-        public DateTime FechaFin { get => fechaFin; }
-        public Estado EstadoTurno { get => estadoTurno; set => estadoTurno = value; }
+        public DateTime FechaInicio
+        {
+            get { return fechaInicio; }
+            set { fechaInicio = value; }
+        }
+        public DateTime FechaFin
+        {
+            get { return fechaFin; }
+            set { fechaFin = value; }
+        }
+        public Estado EstadoTurno
+        {
+            get { return estadoTurno; }
+            set { estadoTurno = value; }
+        }
 
         public bool esEstadoActual() {
             // Si se instancia sin generar fechaHoraHasta toma por default minValue
-            if (fechaFin.ToShortDateString() == "1/1/0001")
+            if (fechaFin.ToShortDateString() == "01/01/0001")
                 return true;
             else
                 return false;
