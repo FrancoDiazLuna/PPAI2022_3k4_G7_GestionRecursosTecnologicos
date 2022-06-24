@@ -49,9 +49,9 @@ namespace PPAI2022_3k4_G7_GestionRT
         public static Modelo modelo14 = new Modelo("SFS667");
 
         //Estados Recurso Tecnologico
-        public static Estado estadoRT1 = new Estado("En mantenimiento", "Descripcion", "Recurso");
-        public static Estado estadoRT2 = new Estado("Disponible", "Descripcion", "Recurso");
-        public static Estado estadoRT3 = new Estado("Mantenimiento correctivo", "Descripcion", "Recurso");
+        public static Estado estadoRT1 = new Estado("En mantenimiento", "Descripcion", "Recurso", false, false);
+        public static Estado estadoRT2 = new Estado("Disponible", "Descripcion", "Recurso", true, false);
+        public static Estado estadoRT3 = new Estado("Mantenimiento correctivo", "Descripcion", "Recurso", false, false);
 
         //Estados Turno
         public static Estado estadoTDisponible = new Estado("Disponible", "Descripcion", "Turno");
@@ -64,9 +64,9 @@ namespace PPAI2022_3k4_G7_GestionRT
         public static CambioEstadoTurno cet3 = new CambioEstadoTurno(fechaInicio, estadoTReservado);
 
         //Cambios de estado RT
-        public static CambioEstadoRT cert1 = new CambioEstadoRT(estadoRT1, fechaInicio, fechaFin);
-        public static CambioEstadoRT cert2 = new CambioEstadoRT(estadoRT2, fechaInicio, fechaFin);
-        public static CambioEstadoRT cert3 = new CambioEstadoRT(estadoRT3, fechaInicio, fechaFin);
+        public static CambioEstadoRT cert1 = new CambioEstadoRT(fechaInicio, fechaFin, estadoRT1);
+        public static CambioEstadoRT cert2 = new CambioEstadoRT(fechaInicio, fechaFin, estadoRT3);
+        public static CambioEstadoRT cert3 = new CambioEstadoRT(fechaInicio, null, estadoRT2);
 
         //Marcas en el sistema
         public static Marca marca1 = new Marca("Nikon", new List<Modelo> { modelo, modelo1 });
@@ -115,11 +115,6 @@ namespace PPAI2022_3k4_G7_GestionRT
         public static readonly AsignacionCientifico acci3 = new AsignacionCientifico(fechaInicio, fechaFin, cientifico3);
         public static readonly AsignacionCientifico acci4 = new AsignacionCientifico(fechaInicio, fechaFin, cientifico4);
 
-        //Centros de Investigacion en el sistema
-        public static CentroDeInvestigacion centro1 = new CentroDeInvestigacion("Centro FCEFyN", "FCEFyN", "Chile 215", 7, loadRecursosTecnologicosC1(), crearAsignacionCientifico());
-        public static CentroDeInvestigacion centro2 = new CentroDeInvestigacion("Centro F.C.M.", "Facultad de Ciencias Médicas", " Blvd. de la Reforma 197", 3, loadRecursosTecnologicosC2(), crearAsignacionCientifico());
-        public static CentroDeInvestigacion centro3 = new CentroDeInvestigacion("Centro F.O.", "Facultad de Odontología (F.O.)", "Haya de la Torre S/N, X5000", 5, loadRecursosTecnologicosC3(), crearAsignacionCientifico());
-
         //Recursos tecnologicos en el sistema
         public static RecursoTecnologico rt1 = new RecursoTecnologico(1, modelo4, tipoRecurso1, crearCambioEstadoRTsDisponible(), crearListaTurnos());
         public static RecursoTecnologico rt2 = new RecursoTecnologico(2, modelo6, tipoRecurso4, crearCambioEstadoRTsReservable(), crearListaTurnos());
@@ -142,6 +137,11 @@ namespace PPAI2022_3k4_G7_GestionRT
         public static RecursoTecnologico rt19 = new RecursoTecnologico(5, modelo5, tipoRecurso5, crearCambioEstadoRTsReservable(), crearListaTurnos());
         public static RecursoTecnologico rt20 = new RecursoTecnologico(6, modelo3, tipoRecurso6, crearCambioEstadoRTsReservable(), crearListaTurnos());
         public static RecursoTecnologico rt21 = new RecursoTecnologico(7, modelo1, tipoRecurso7, crearCambioEstadoRTsReservable(), crearListaTurnos());
+
+        //Centros de Investigacion en el sistema
+        public static CentroDeInvestigacion centro1 = new CentroDeInvestigacion("Centro FCEFyN", "FCEFyN", "Chile 215", 7, loadRecursosTecnologicosC1(), crearAsignacionCientifico());
+        public static CentroDeInvestigacion centro2 = new CentroDeInvestigacion("Centro F.C.M.", "Facultad de Ciencias Médicas", " Blvd. de la Reforma 197", 3, loadRecursosTecnologicosC2(), crearAsignacionCientifico());
+        public static CentroDeInvestigacion centro3 = new CentroDeInvestigacion("Centro F.O.", "Facultad de Odontología (F.O.)", "Haya de la Torre S/N, X5000", 5, loadRecursosTecnologicosC3(), crearAsignacionCientifico());
 
 
         public static List<CentroDeInvestigacion> listarCentros()

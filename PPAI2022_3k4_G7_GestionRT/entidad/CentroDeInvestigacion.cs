@@ -60,7 +60,10 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             
             foreach(RecursoTecnologico rt in this.recursosTecnologicos)
             {
-                esTuRecurso = rt.Equals(recursoTecnologico);
+                if (rt.Equals(recursoTecnologico))
+                {
+                    return esTuRecurso = true;
+                }
             }
             return esTuRecurso;
         }

@@ -18,8 +18,7 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         private AsignacionRespTecnologico responsableTecnologico;
         private List<CaracteristicasDelRecurso> caracteristica;
         private TipoRecursoTecnologico tipoDeRecurso;
-        private CambioEstadoRT cambioEstadoActual = null;
-
+        private CambioEstadoRT cambioEstadoActual;
 
         public RecursoTecnologico(int nroInventario, Modelo modelo, TipoRecursoTecnologico tipoDeRecurso, List<CambioEstadoRT> cambiosEstadosRT, List<Turno> listaTurno)
         {
@@ -32,7 +31,7 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         
         public bool esTuTipo(string nombreTipoRecurso)
         {
-            return this.tipoDeRecurso.esTuTipo(nombreTipoRecurso);
+            return this.tipoDeRecurso.esTuNombre(nombreTipoRecurso);
         }
 
         public CambioEstadoRT buscarEstadoActual()
@@ -40,16 +39,16 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             CambioEstadoRT cambioEstadoRT = null;
 
             if (cambiosEstadosRT.Count>0)
-              {
+            {
                 foreach (CambioEstadoRT cambio in cambiosEstadosRT)                
-                  {
-                       if (cambio.esEstadoActual())
-                       { 
-                        cambioEstadoRT= cambio;
-                           break;
-                       }
-                   }
-               }
+                {
+                    if (cambio.esEstadoActual())
+                    { 
+                         cambioEstadoRT = cambio;
+                         break;
+                    }
+                }
+            }
 
             return cambioEstadoRT;
         }
@@ -57,9 +56,11 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         public RecursoTecnologicoMuestra buscarDatosRT(List<Marca> marcas, List<CentroDeInvestigacion> centrosInvestigacion)
         {
             RecursoTecnologicoMuestra recurso = null;
-            cambioEstadoActual = buscarEstadoActual();
             string centroDeInvestigacion = "";
-            if( cambioEstadoActual.esReservable() && cambioEstadoActual!= null)
+
+            cambioEstadoActual = buscarEstadoActual();
+            
+            if(cambioEstadoActual != null && cambioEstadoActual.esReservable())
             {
                 if (buscarCIdelRT(centrosInvestigacion) != null)
                 {
@@ -86,7 +87,6 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
                     centroInvestigacion = centro;
                     break;
                 }
-
             }
             return centroInvestigacion;
         }

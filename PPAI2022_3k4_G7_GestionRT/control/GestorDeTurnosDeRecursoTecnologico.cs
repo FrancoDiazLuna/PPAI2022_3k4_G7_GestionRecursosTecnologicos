@@ -15,7 +15,6 @@ namespace PPAI2022_3k4_G7_GestionRT.control
         private List<TipoRecursoTecnologico> listaTipoRTDisponibles;
         private List<RecursoTecnologico> listaRecursoTecnologicosDisponibles;
         private List<Estado> listaEstados;
-        private List<RecursoTecnologico> listaRecursosTecnologicosValidos;
         private List<RecursoTecnologicoMuestra> listaRecursosMuestra;
         private Sesion activa= CargaDeDatos.loadSesion();
         private Usuario deLaSesion;
@@ -41,11 +40,6 @@ namespace PPAI2022_3k4_G7_GestionRT.control
             listaEstados = CargaDeDatos.loadEstados();
         }
 
-        public void tomarSeleccionTipoRecursoTecnologico(string tipoRecursoSeleccionado)
-        {
-            tipoDeRTSeleccionado(tipoRecursoSeleccionado);
-        }
-
         public List<String> buscarTiposDeRT()
         {
             List<String> nombresTiposDeRT = new List<String>();
@@ -67,20 +61,18 @@ namespace PPAI2022_3k4_G7_GestionRT.control
 
         public void buscarRT(string tipoRecursoSeleccionado)
         {
-            listaRecursosTecnologicosValidos = new List<RecursoTecnologico>();
+            listaRecursosMuestra = new List<RecursoTecnologicoMuestra>();
 
             foreach (RecursoTecnologico recurso in listaRecursoTecnologicosDisponibles)
             {
                 if (recurso.esTuTipo(tipoRecursoSeleccionado))
                 {
-
-                    recurso.buscarDatosRT(CargaDeDatos.loadMarcas(), centrosInvestigacion);
-                   
+                    listaRecursosMuestra.Add(recurso.buscarDatosRT(CargaDeDatos.loadMarcas(), centrosInvestigacion));
                 }
-
             }
             marcarColorXEstado();
             agruparRTPorCentroInvestigacion();
+            ucRegistrarTurnoRT.mostrarRT(listaRecursosMuestra);
         }
 
         public void agruparRTPorCentroInvestigacion()
@@ -109,18 +101,44 @@ namespace PPAI2022_3k4_G7_GestionRT.control
                 }
             }
         }
-        public List<TurnoMuestra> recursoTecnologicoSeleccionado(RecursoTecnologicoMuestra RtSeleccionado)
+        public void recursoTecnologicoSeleccionado(RecursoTecnologicoMuestra RtSeleccionado)
         {
             seleccionado = CargaDeDatos.getRecursoPorNroInventario(RtSeleccionado.getNumetoInventario(), RtSeleccionado.getCentroDeInvestigacion());
             obtenerUsuarioLogueado();
             if (verificarCIDelUsuario())
             {
                 getFechaHoraActual();
-                List<TurnoMuestra> listaTurnos = seleccionado.getTurnosPosterioresFechaHoraActual(fechaActual);
-                // aca se llama al metodo clasificar por colores 
-                return listaTurnos;
-             }
-            return null;
+                buscarTurnosDelRTSeleccionado(seleccionado);    
+            }
+        }
+
+        private List<TurnoMuestra> buscarTurnosDelRTSeleccionado(RecursoTecnologico seleccionado)
+        {
+            List<TurnoMuestra> listaTurnos = seleccionado.getTurnosPosterioresFechaHoraActual(fechaActual);
+            clasificarPorColores(listaTurnos);
+            return listaTurnos;
+        }
+
+        private void clasificarPorColores(List<TurnoMuestra> listaTurnos)
+        {
+            foreach (TurnoMuestra turno in listaTurnos)
+            {
+                switch (turno.Estado)
+                {
+                    case "Disponible":
+                        turno.setColor(1); //Azul
+                        break;
+                    case "Con reserva pendiente de confirmacion":
+                        turno.setColor(2);//Gris
+                        break;
+                    case "Reservado"://Rojo
+                        turno.setColor(3);
+                        break;
+                    default:
+                        turno.setColor(0);//No color -> Blanco
+                        break;
+                }
+            }
         }
 
         public void obtenerUsuarioLogueado()
@@ -178,7 +196,16 @@ namespace PPAI2022_3k4_G7_GestionRT.control
         {
             MessageBox.Show("Reserva realizada con éxito", "Importante", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-           
+
+        internal void tomarSeleccionDia(DateTime date)
+        {
+            string datos = date.ToShortDateString();
+            //
+
+        }
+
     }
+
+        
 }
                                                  

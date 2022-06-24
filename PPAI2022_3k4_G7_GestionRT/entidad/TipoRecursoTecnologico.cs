@@ -26,7 +26,7 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
         public string Descripcion { get => descripcion; set => descripcion = value; }
 
         
-        public bool esTuTipo(string tipoRT)
+        public bool esTuNombre(string tipoRT)
         {
             return nombre == tipoRT;
         }

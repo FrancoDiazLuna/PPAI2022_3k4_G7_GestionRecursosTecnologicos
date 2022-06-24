@@ -33,9 +33,7 @@ namespace PPAI2022_3k4_G7_GestionRT.entidad
             this.color = nroColor;
         }
 
-       //Getters&Setters
         public string getEstado() { return estado; }
-
         public string getCentroDeInvestigacion() { return centroDeInvestigacion; }
         public string getMarca() { return marca; }
         public string getModelo() { return modelo; }

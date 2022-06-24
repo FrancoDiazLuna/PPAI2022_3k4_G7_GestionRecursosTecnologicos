@@ -29,9 +29,17 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ucRegistrarTurnoRT));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblRegistrarTurnoRT = new System.Windows.Forms.Label();
             this.panelDatosDeReserva = new System.Windows.Forms.Panel();
+            this.grbSeleccionDeRecurso = new System.Windows.Forms.GroupBox();
+            this.dgvRecursosTecnologicos = new System.Windows.Forms.DataGridView();
+            this.NroDeInventario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CentroDeInvestigación = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Modelo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnSeleccionarRT = new System.Windows.Forms.Button();
             this.grbNuevoTurno = new System.Windows.Forms.GroupBox();
             this.lblFechaseleccionada = new System.Windows.Forms.Label();
@@ -43,6 +51,9 @@
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblTurnosDisponibles = new System.Windows.Forms.Label();
             this.panelnotificacion = new System.Windows.Forms.Panel();
+            this.panelWSP = new System.Windows.Forms.FlowLayoutPanel();
+            this.panelEmail = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.chkWhatsapp = new System.Windows.Forms.CheckBox();
             this.chkEmail = new System.Windows.Forms.CheckBox();
             this.txtEstado = new System.Windows.Forms.TextBox();
@@ -57,30 +68,25 @@
             this.lblNroDeInventario = new System.Windows.Forms.Label();
             this.txtTipoRecurso = new System.Windows.Forms.TextBox();
             this.lblTipoRecurso = new System.Windows.Forms.Label();
-            this.dgvRecursosTecnologicos = new System.Windows.Forms.DataGridView();
-            this.NroDeInventario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CentroDeInvestigación = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Marca = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Modelo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmbTipoRecurso = new System.Windows.Forms.ComboBox();
             this.lblSeleccionTipoRT = new System.Windows.Forms.Label();
             this.panelBonotes = new System.Windows.Forms.Panel();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnReservar = new System.Windows.Forms.Button();
-            this.grbSeleccionDeRecurso = new System.Windows.Forms.GroupBox();
+            this.calendario = new Pabo.Calendar.MonthCalendar();
             this.tableLayoutPanel1.SuspendLayout();
             this.panelDatosDeReserva.SuspendLayout();
+            this.grbSeleccionDeRecurso.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRecursosTecnologicos)).BeginInit();
             this.grbNuevoTurno.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTurnos)).BeginInit();
             this.panelnotificacion.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRecursosTecnologicos)).BeginInit();
             this.panelBonotes.SuspendLayout();
-            this.grbSeleccionDeRecurso.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.lblRegistrarTurnoRT, 0, 0);
@@ -121,6 +127,72 @@
             this.panelDatosDeReserva.Size = new System.Drawing.Size(1178, 837);
             this.panelDatosDeReserva.TabIndex = 3;
             // 
+            // grbSeleccionDeRecurso
+            // 
+            this.grbSeleccionDeRecurso.Controls.Add(this.dgvRecursosTecnologicos);
+            this.grbSeleccionDeRecurso.Controls.Add(this.btnSeleccionarRT);
+            this.grbSeleccionDeRecurso.Enabled = false;
+            this.grbSeleccionDeRecurso.Location = new System.Drawing.Point(289, 11);
+            this.grbSeleccionDeRecurso.Name = "grbSeleccionDeRecurso";
+            this.grbSeleccionDeRecurso.Size = new System.Drawing.Size(870, 226);
+            this.grbSeleccionDeRecurso.TabIndex = 6;
+            this.grbSeleccionDeRecurso.TabStop = false;
+            this.grbSeleccionDeRecurso.Text = "Seleccione un recurso tecnológico:";
+            // 
+            // dgvRecursosTecnologicos
+            // 
+            this.dgvRecursosTecnologicos.AllowUserToAddRows = false;
+            this.dgvRecursosTecnologicos.AllowUserToDeleteRows = false;
+            this.dgvRecursosTecnologicos.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dgvRecursosTecnologicos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRecursosTecnologicos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.NroDeInventario,
+            this.CentroDeInvestigación,
+            this.Marca,
+            this.Modelo,
+            this.Estado});
+            this.dgvRecursosTecnologicos.Enabled = false;
+            this.dgvRecursosTecnologicos.Location = new System.Drawing.Point(8, 25);
+            this.dgvRecursosTecnologicos.Name = "dgvRecursosTecnologicos";
+            this.dgvRecursosTecnologicos.ReadOnly = true;
+            this.dgvRecursosTecnologicos.RowHeadersVisible = false;
+            this.dgvRecursosTecnologicos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvRecursosTecnologicos.Size = new System.Drawing.Size(856, 142);
+            this.dgvRecursosTecnologicos.TabIndex = 2;
+            // 
+            // NroDeInventario
+            // 
+            this.NroDeInventario.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.NroDeInventario.HeaderText = "Nro de Inventario";
+            this.NroDeInventario.Name = "NroDeInventario";
+            this.NroDeInventario.ReadOnly = true;
+            // 
+            // CentroDeInvestigación
+            // 
+            this.CentroDeInvestigación.HeaderText = "Centro de Investigación";
+            this.CentroDeInvestigación.Name = "CentroDeInvestigación";
+            this.CentroDeInvestigación.ReadOnly = true;
+            this.CentroDeInvestigación.Width = 300;
+            // 
+            // Marca
+            // 
+            this.Marca.HeaderText = "Marca";
+            this.Marca.Name = "Marca";
+            this.Marca.ReadOnly = true;
+            // 
+            // Modelo
+            // 
+            this.Modelo.HeaderText = "Modelo";
+            this.Modelo.Name = "Modelo";
+            this.Modelo.ReadOnly = true;
+            // 
+            // Estado
+            // 
+            this.Estado.HeaderText = "Estado";
+            this.Estado.Name = "Estado";
+            this.Estado.ReadOnly = true;
+            this.Estado.Width = 200;
+            // 
             // btnSeleccionarRT
             // 
             this.btnSeleccionarRT.Enabled = false;
@@ -131,10 +203,11 @@
             this.btnSeleccionarRT.TabIndex = 5;
             this.btnSeleccionarRT.Text = "Seleccionar";
             this.btnSeleccionarRT.UseVisualStyleBackColor = true;
-            this.btnSeleccionarRT.Click += new System.EventHandler(this.btnSeleccionarRT_Click);
+            this.btnSeleccionarRT.Click += new System.EventHandler(this.tomarSeleccionDeRT);
             // 
             // grbNuevoTurno
             // 
+            this.grbNuevoTurno.Controls.Add(this.calendario);
             this.grbNuevoTurno.Controls.Add(this.lblFechaseleccionada);
             this.grbNuevoTurno.Controls.Add(this.lblMedioDeNotificacion);
             this.grbNuevoTurno.Controls.Add(this.dgvTurnos);
@@ -175,7 +248,7 @@
             // 
             this.lblMedioDeNotificacion.AutoSize = true;
             this.lblMedioDeNotificacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.lblMedioDeNotificacion.Location = new System.Drawing.Point(61, 541);
+            this.lblMedioDeNotificacion.Location = new System.Drawing.Point(61, 543);
             this.lblMedioDeNotificacion.Name = "lblMedioDeNotificacion";
             this.lblMedioDeNotificacion.Size = new System.Drawing.Size(162, 20);
             this.lblMedioDeNotificacion.TabIndex = 16;
@@ -252,18 +325,46 @@
             // 
             // panelnotificacion
             // 
+            this.panelnotificacion.Controls.Add(this.panelWSP);
+            this.panelnotificacion.Controls.Add(this.panelEmail);
+            this.panelnotificacion.Controls.Add(this.panel1);
             this.panelnotificacion.Controls.Add(this.chkWhatsapp);
             this.panelnotificacion.Controls.Add(this.chkEmail);
-            this.panelnotificacion.Location = new System.Drawing.Point(251, 527);
+            this.panelnotificacion.Location = new System.Drawing.Point(225, 530);
             this.panelnotificacion.Name = "panelnotificacion";
-            this.panelnotificacion.Size = new System.Drawing.Size(242, 47);
+            this.panelnotificacion.Size = new System.Drawing.Size(310, 47);
             this.panelnotificacion.TabIndex = 13;
+            // 
+            // panelWSP
+            // 
+            this.panelWSP.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelWSP.BackgroundImage")));
+            this.panelWSP.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panelWSP.Location = new System.Drawing.Point(264, 3);
+            this.panelWSP.Name = "panelWSP";
+            this.panelWSP.Size = new System.Drawing.Size(40, 41);
+            this.panelWSP.TabIndex = 5;
+            // 
+            // panelEmail
+            // 
+            this.panelEmail.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelEmail.BackgroundImage")));
+            this.panelEmail.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panelEmail.Location = new System.Drawing.Point(77, 3);
+            this.panelEmail.Name = "panelEmail";
+            this.panelEmail.Size = new System.Drawing.Size(40, 41);
+            this.panelEmail.TabIndex = 3;
+            // 
+            // panel1
+            // 
+            this.panel1.Location = new System.Drawing.Point(227, 70);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(50, 44);
+            this.panel1.TabIndex = 4;
             // 
             // chkWhatsapp
             // 
             this.chkWhatsapp.AutoSize = true;
             this.chkWhatsapp.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkWhatsapp.Location = new System.Drawing.Point(124, 12);
+            this.chkWhatsapp.Location = new System.Drawing.Point(155, 12);
             this.chkWhatsapp.Name = "chkWhatsapp";
             this.chkWhatsapp.Size = new System.Drawing.Size(103, 24);
             this.chkWhatsapp.TabIndex = 3;
@@ -274,7 +375,7 @@
             // 
             this.chkEmail.AutoSize = true;
             this.chkEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkEmail.Location = new System.Drawing.Point(16, 12);
+            this.chkEmail.Location = new System.Drawing.Point(4, 13);
             this.chkEmail.Name = "chkEmail";
             this.chkEmail.Size = new System.Drawing.Size(67, 24);
             this.chkEmail.TabIndex = 2;
@@ -389,68 +490,14 @@
             this.lblTipoRecurso.TabIndex = 0;
             this.lblTipoRecurso.Text = "Tipo de Recurso:";
             // 
-            // dgvRecursosTecnologicos
-            // 
-            this.dgvRecursosTecnologicos.AllowUserToAddRows = false;
-            this.dgvRecursosTecnologicos.AllowUserToDeleteRows = false;
-            this.dgvRecursosTecnologicos.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
-            this.dgvRecursosTecnologicos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRecursosTecnologicos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.NroDeInventario,
-            this.CentroDeInvestigación,
-            this.Marca,
-            this.Modelo,
-            this.Estado});
-            this.dgvRecursosTecnologicos.Enabled = false;
-            this.dgvRecursosTecnologicos.Location = new System.Drawing.Point(8, 25);
-            this.dgvRecursosTecnologicos.Name = "dgvRecursosTecnologicos";
-            this.dgvRecursosTecnologicos.ReadOnly = true;
-            this.dgvRecursosTecnologicos.RowHeadersVisible = false;
-            this.dgvRecursosTecnologicos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvRecursosTecnologicos.Size = new System.Drawing.Size(856, 142);
-            this.dgvRecursosTecnologicos.TabIndex = 2;
-            // 
-            // NroDeInventario
-            // 
-            this.NroDeInventario.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.NroDeInventario.HeaderText = "Nro de Inventario";
-            this.NroDeInventario.Name = "NroDeInventario";
-            this.NroDeInventario.ReadOnly = true;
-            // 
-            // CentroDeInvestigación
-            // 
-            this.CentroDeInvestigación.HeaderText = "Centro de Investigación";
-            this.CentroDeInvestigación.Name = "CentroDeInvestigación";
-            this.CentroDeInvestigación.ReadOnly = true;
-            this.CentroDeInvestigación.Width = 300;
-            // 
-            // Marca
-            // 
-            this.Marca.HeaderText = "Marca";
-            this.Marca.Name = "Marca";
-            this.Marca.ReadOnly = true;
-            // 
-            // Modelo
-            // 
-            this.Modelo.HeaderText = "Modelo";
-            this.Modelo.Name = "Modelo";
-            this.Modelo.ReadOnly = true;
-            // 
-            // Estado
-            // 
-            this.Estado.HeaderText = "Estado";
-            this.Estado.Name = "Estado";
-            this.Estado.ReadOnly = true;
-            this.Estado.Width = 200;
-            // 
             // cmbTipoRecurso
             // 
             this.cmbTipoRecurso.FormattingEnabled = true;
-            this.cmbTipoRecurso.Location = new System.Drawing.Point(16, 43);
+            this.cmbTipoRecurso.Location = new System.Drawing.Point(16, 36);
             this.cmbTipoRecurso.Name = "cmbTipoRecurso";
             this.cmbTipoRecurso.Size = new System.Drawing.Size(257, 28);
             this.cmbTipoRecurso.TabIndex = 1;
-            this.cmbTipoRecurso.SelectedIndexChanged += new System.EventHandler(this.cmbTipoRecurso_SelectedIndexChanged);
+            this.cmbTipoRecurso.SelectedIndexChanged += new System.EventHandler(this.tomarSeleccionDeTipoDeRT);
             // 
             // lblSeleccionTipoRT
             // 
@@ -495,17 +542,29 @@
             this.btnReservar.UseVisualStyleBackColor = true;
             this.btnReservar.Click += new System.EventHandler(this.btnReservar_Click);
             // 
-            // grbSeleccionDeRecurso
+            // calendario
             // 
-            this.grbSeleccionDeRecurso.Controls.Add(this.dgvRecursosTecnologicos);
-            this.grbSeleccionDeRecurso.Controls.Add(this.btnSeleccionarRT);
-            this.grbSeleccionDeRecurso.Enabled = false;
-            this.grbSeleccionDeRecurso.Location = new System.Drawing.Point(289, 11);
-            this.grbSeleccionDeRecurso.Name = "grbSeleccionDeRecurso";
-            this.grbSeleccionDeRecurso.Size = new System.Drawing.Size(870, 226);
-            this.grbSeleccionDeRecurso.TabIndex = 6;
-            this.grbSeleccionDeRecurso.TabStop = false;
-            this.grbSeleccionDeRecurso.Text = "Seleccione un recurso tecnológico:";
+            this.calendario.ActiveMonth.Month = 6;
+            this.calendario.ActiveMonth.Year = 2022;
+            this.calendario.Culture = new System.Globalization.CultureInfo("es-ES");
+            this.calendario.Footer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.calendario.Header.BackColor1 = System.Drawing.SystemColors.ActiveCaption;
+            this.calendario.Header.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.calendario.Header.TextColor = System.Drawing.Color.White;
+            this.calendario.ImageList = null;
+            this.calendario.Location = new System.Drawing.Point(61, 299);
+            this.calendario.MaxDate = new System.DateTime(2032, 6, 24, 2, 36, 25, 618);
+            this.calendario.MinDate = new System.DateTime(2012, 6, 24, 2, 36, 25, 618);
+            this.calendario.Month.BackgroundImage = null;
+            this.calendario.Month.DateFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.calendario.Month.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.calendario.Name = "calendario";
+            this.calendario.ShowFooter = false;
+            this.calendario.Size = new System.Drawing.Size(432, 207);
+            this.calendario.TabIndex = 18;
+            this.calendario.Weekdays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.calendario.Weeknumbers.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.calendario.DayClick += new Pabo.Calendar.DayClickEventHandler(this.calendario_DayClick);
             // 
             // ucRegistrarTurnoRT
             // 
@@ -518,14 +577,14 @@
             this.tableLayoutPanel1.PerformLayout();
             this.panelDatosDeReserva.ResumeLayout(false);
             this.panelDatosDeReserva.PerformLayout();
+            this.grbSeleccionDeRecurso.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRecursosTecnologicos)).EndInit();
             this.grbNuevoTurno.ResumeLayout(false);
             this.grbNuevoTurno.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTurnos)).EndInit();
             this.panelnotificacion.ResumeLayout(false);
             this.panelnotificacion.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRecursosTecnologicos)).EndInit();
             this.panelBonotes.ResumeLayout(false);
-            this.grbSeleccionDeRecurso.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -572,5 +631,10 @@
         private System.Windows.Forms.CheckBox chkWhatsapp;
         private System.Windows.Forms.CheckBox chkEmail;
         private System.Windows.Forms.GroupBox grbSeleccionDeRecurso;
+        private System.Windows.Forms.FlowLayoutPanel panelWSP;
+        private System.Windows.Forms.FlowLayoutPanel panelEmail;
+        private System.Windows.Forms.Panel panel1;
+        private Pabo.Calendar.MonthCalendar monthCalendar1;
+        private Pabo.Calendar.MonthCalendar calendario;
     }
 }
