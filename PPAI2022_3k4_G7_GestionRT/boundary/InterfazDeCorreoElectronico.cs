@@ -16,10 +16,12 @@ namespace PPAI2022_3k4_G7_GestionRT.boundary
         {
         }
 
-        public void generarNotififacionReservaDeTurno(StringBuilder mensaje, string destinatario, string NombreRecurso, string FechaReserva) 
+        public void generarNotififacionReservaDeTurno() 
         {
+            //StringBuilder mensaje, string destinatario, string NombreRecurso, string FechaReserva
             gestor = new GestorDeCorreoElectronico();
-            gestor.enviarCorreoElectronico(mensaje, destinatario, NombreRecurso, FechaReserva);
+            //mensaje, destinatario, NombreRecurso, FechaReserva
+            gestor.enviarCorreoElectronico();
         }
 
     }

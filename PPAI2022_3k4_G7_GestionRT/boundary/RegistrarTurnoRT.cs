@@ -96,8 +96,6 @@ namespace PPAI2022_3k4_G7_GestionRT.boundary
                     if (chkWhatsapp.Checked)
                         MessageBox.Show("Mensaje enviado correctamente.");
 
-                    MessageBox.Show("Reserva efectuada exitosamente!", "Notificacion enviada.", MessageBoxButtons.OK);
-
                     gestor.finCU();
                 }
             }
@@ -240,12 +238,10 @@ namespace PPAI2022_3k4_G7_GestionRT.boundary
             }
             dgvTurnos.ClearSelection();
         }
-        //este metodo es el tomar seleccionTurno
-        private void dgvTurnos_CellClick(object sender, DataGridViewCellEventArgs e)
+
+        private void tomarSeleccionTurno(object sender, DataGridViewCellEventArgs e)
         {
-            //este llama a turnoseleccionado
-            //gestor.turnoSeleccionado(dgvTurnos.CurrentRow);
-            gestor.tomarSeleccionTurno(dgvTurnos.CurrentRow);
+            gestor.turnoSeleccionado(dgvTurnos.CurrentRow);
         }
     }
 }

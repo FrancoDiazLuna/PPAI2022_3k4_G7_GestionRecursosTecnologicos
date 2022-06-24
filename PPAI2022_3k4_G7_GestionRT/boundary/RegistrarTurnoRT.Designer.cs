@@ -259,20 +259,20 @@
             this.dgvTurnos.AllowUserToAddRows = false;
             this.dgvTurnos.AllowUserToDeleteRows = false;
             this.dgvTurnos.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvTurnos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvTurnos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTurnos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn6,
             this.dataGridViewTextBoxColumn7,
             this.dataGridViewTextBoxColumn8});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvTurnos.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgvTurnos.Location = new System.Drawing.Point(566, 48);
             this.dgvTurnos.Name = "dgvTurnos";
             this.dgvTurnos.ReadOnly = true;
@@ -280,7 +280,7 @@
             this.dgvTurnos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTurnos.Size = new System.Drawing.Size(571, 529);
             this.dgvTurnos.TabIndex = 15;
-            this.dgvTurnos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTurnos_CellClick);
+            this.dgvTurnos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tomarSeleccionTurno);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -551,18 +551,19 @@
             this.calendario.ActiveMonth.Year = 2022;
             this.calendario.Culture = new System.Globalization.CultureInfo("es-ES");
             this.calendario.Footer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.calendario.Header.BackColor1 = System.Drawing.SystemColors.ActiveCaption;
             this.calendario.Header.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.calendario.Header.TextColor = System.Drawing.Color.White;
             this.calendario.ImageList = null;
-            this.calendario.Location = new System.Drawing.Point(61, 308);
-            this.calendario.MaxDate = new System.DateTime(2032, 6, 24, 15, 38, 44, 472);
-            this.calendario.MinDate = new System.DateTime(2012, 6, 24, 15, 38, 44, 472);
+            this.calendario.Location = new System.Drawing.Point(61, 299);
+            this.calendario.MaxDate = new System.DateTime(2032, 6, 24, 17, 32, 23, 459);
+            this.calendario.MinDate = new System.DateTime(2012, 6, 24, 17, 32, 23, 459);
             this.calendario.Month.BackgroundImage = null;
             this.calendario.Month.DateFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.calendario.Month.TextFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.calendario.Name = "calendario";
             this.calendario.ShowFooter = false;
-            this.calendario.Size = new System.Drawing.Size(432, 202);
+            this.calendario.Size = new System.Drawing.Size(432, 207);
             this.calendario.TabIndex = 18;
             this.calendario.Weekdays.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.calendario.Weeknumbers.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);

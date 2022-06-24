@@ -22,13 +22,6 @@ namespace PPAI2022_3k4_G7_GestionRT.control
         private Dictionary<string, List<TurnoMuestra>> turnosOrdenados;
         private Turno turnoElegido;
         private List<TurnoMuestra> listaTurnos;
-
-        internal void opcionReservarTurnoRT()
-        {
-            ucRegistrarTurnoRT.mostrarTiposDeRT(buscarTiposDeRT());
-            ucRegistrarTurnoRT.solicitarSeleccionDeTiposDeRT();
-        }
-
         private Turno turnoSeleccion;
         private DateTime fechaActual;
         private InterfazDeCorreoElectronico interfazDeCorreoElectronico;
@@ -40,6 +33,11 @@ namespace PPAI2022_3k4_G7_GestionRT.control
             listaTipoRTDisponibles = CargaDeDatos.loadTiposRecursoTecnologico();
             listaRecursoTecnologicosDisponibles = CargaDeDatos.loadRecursosTecnologicos();
             listaEstados = CargaDeDatos.loadEstados();
+        }
+        internal void opcionReservarTurnoRT()
+        {
+            ucRegistrarTurnoRT.mostrarTiposDeRT(buscarTiposDeRT());
+            ucRegistrarTurnoRT.solicitarSeleccionDeTiposDeRT();
         }
 
         public List<String> buscarTiposDeRT()
@@ -133,14 +131,28 @@ namespace PPAI2022_3k4_G7_GestionRT.control
         public void turnoSeleccionado(DataGridViewRow currentRow)
         {
 
-            turnoSeleccion = tomarSeleccionTurno(DataGridViewRow currentRow);
-           // turnoSeleccion = CargaDeDatos.getTurno(turnoMuestra.FechaHoraInicio, turnoMuestra.DiaSemana);
+            foreach (var turnoDisponible in listaTurnos)
+            {
+                string fecha = currentRow.Cells[0].Value.ToString();
+                string horaInicio = currentRow.Cells[1].Value.ToString();
+                string horaFin = currentRow.Cells[2].Value.ToString();
+                string estado = currentRow.Cells[3].Value.ToString();
+
+                Turno t = CargaDeDatos.getTurno(turnoDisponible.FechaHoraInicio, turnoDisponible.DiaSemana);
+
+                TurnoMuestra comparable = t.mostrarTurno();
+
+                string fechaComparable = comparable.FechaHoraInicio.ToShortDateString();
+                string horaInicioComparable = comparable.FechaHoraInicio.ToShortTimeString();
+                string horaFinComparable = comparable.FechaHoraFin.ToShortTimeString();
+                string estadoComparable = comparable.Estado;
+
+                if (fecha == fechaComparable && horaInicio == horaInicioComparable && horaFin == horaFinComparable && estado == estadoComparable)
+                {
+                    turnoElegido = t;
+                }
+            }
         }
-        /*
-        public void turnoSeleccionado(TurnoMuestra turnoMuestra)
-        {
-            turnoSeleccion = CargaDeDatos.getTurno(turnoMuestra.FechaHoraInicio, turnoMuestra.DiaSemana);
-        }*/
 
         public void confirmarReservaDeTurno()
         {
@@ -252,37 +264,14 @@ namespace PPAI2022_3k4_G7_GestionRT.control
             interfazDeCorreoElectronico = new InterfazDeCorreoElectronico();
             var mensaje = new StringBuilder("Se registro el turno del Recurso");
             string email = deLaSesion.Cientifico.CorreoPersonal;
-            interfazDeCorreoElectronico.generarNotififacionReservaDeTurno(mensaje, email, seleccionado.getNroInventario().ToString(), turnoSeleccion.FechaHoraInicio.ToString());
-        }
-
-        internal void tomarSeleccionTurno(DataGridViewRow currentRow)
-        {
-            foreach (var turnoDisponible in listaTurnos)
-            {
-                string fecha = currentRow.Cells[0].Value.ToString();
-                string horaInicio = currentRow.Cells[1].Value.ToString();
-                string horaFin = currentRow.Cells[2].Value.ToString();
-                string estado = currentRow.Cells[3].Value.ToString();
-
-                Turno t = CargaDeDatos.getTurno(turnoDisponible.FechaHoraInicio, turnoDisponible.DiaSemana);
-
-                TurnoMuestra comparable = t.mostrarTurno();
-
-                string fechaComparable = comparable.FechaHoraInicio.ToShortDateString();
-                string horaInicioComparable = comparable.FechaHoraInicio.ToShortTimeString();
-                string horaFinComparable = comparable.FechaHoraFin.ToShortTimeString();
-                string estadoComparable = comparable.Estado;
-
-                if (fecha == fechaComparable && horaInicio == horaInicioComparable && horaFin == horaFinComparable && estado == estadoComparable)
-                {
-                    turnoElegido = t;
-                }
-            }
+            //mensaje, email, seleccionado.getNroInventario().ToString(), turnoElegido.FechaHoraInicio.ToString()
+            interfazDeCorreoElectronico.generarNotififacionReservaDeTurno();
         }
 
         public void finCU()
         {
             MessageBox.Show("Reserva realizada con éxito", "Importante", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ucRegistrarTurnoRT.Dispose();
         }
 
     }
